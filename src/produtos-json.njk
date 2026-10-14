@@ -1,0 +1,19 @@
+---
+permalink: /produtos.json
+eleventyExcludeFromCollections: true
+---
+{%- set lista = [] -%}
+{%- for p in catalogo.produtos -%}
+{%- set lista = (lista.push({
+  slug: p.slug,
+  nome: p.nome,
+  linha: p.linha,
+  genero: p.genero,
+  familia: p.familia,
+  notas: p.notas,
+  disponivel: p.disponivel,
+  precos: (p.precos if site.mostrarPrecos else []),
+  url: ('/perfume/' + p.slug + '/') | absoluta
+}), lista) -%}
+{%- endfor -%}
+{{ { gerado: catalogo.atualizadoEm | dataIso, produtos: lista } | dump | safe }}
