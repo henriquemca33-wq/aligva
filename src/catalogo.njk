@@ -1,0 +1,123 @@
+---
+layout: layouts/base.njk
+title: Catálogo
+description: Todos os perfumes da Aligva — Linha Aligva e encomendas. Busque por nome ou por nota olfativa e filtre por gênero, família e preço.
+permalink: /catalogo/
+eleventyComputed:
+  dadosEstruturados:
+    - "@context": "https://schema.org"
+      "@type": BreadcrumbList
+      itemListElement:
+        - { "@type": ListItem, position: 1, name: "Início", item: "{{ '/' | absoluta }}" }
+        - { "@type": ListItem, position: 2, name: "Catálogo", item: "{{ '/catalogo/' | absoluta }}" }
+---
+{% from "partes/macros.njk" import card, icone %}
+<div class="container">
+  <header class="cabecalho-pagina">
+    <span class="sobrescrito">{{ catalogo.produtos.length }} perfumes</span>
+    <h1>Catálogo</h1>
+    <p>Linha Aligva e encomendas. Busque pelo nome ou por uma nota que você gosta, como “baunilha”.</p>
+  </header>
+
+  <div data-catalogo>
+    <form class="filtros so-com-js" role="search" aria-label="Filtrar perfumes" data-filtros>
+      <div class="campo filtros__busca">
+        <label for="filtro-busca">Buscar por nome ou nota</label>
+        <input class="entrada" type="search" id="filtro-busca" name="q" autocomplete="off" placeholder="Ex.: baunilha, Circe" enterkeyhint="search">
+        {{ icone('busca') }}
+        <button class="visualmente-oculto" type="submit" tabindex="-1">Buscar</button>
+      </div>
+      <button class="botao botao--leve botao--bloco filtros__alternar" type="button" aria-expanded="false" aria-controls="filtros-campos" data-alternar-filtros>Filtrar e ordenar</button>
+      <div class="filtros__campos" id="filtros-campos">
+        <div class="campo">
+          <label for="filtro-linha">Linha</label>
+          <select class="entrada" id="filtro-linha" name="linha">
+            <option value="">Todas</option>
+            {% for s in catalogo.secoes %}<option value="{{ s.linha }}">{{ s.rotulo }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="campo">
+          <label for="filtro-genero">Gênero</label>
+          <select class="entrada" id="filtro-genero" name="genero">
+            <option value="">Todos</option>
+            {% for g in catalogo.generos %}<option value="{{ g.valor }}">{{ g.rotulo }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="campo">
+          <label for="filtro-familia">Família olfativa</label>
+          <select class="entrada" id="filtro-familia" name="familia">
+            <option value="">Todas</option>
+            {% for f in catalogo.familias %}<option value="{{ f.valor }}">{{ f.rotulo }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="campo">
+          <label for="filtro-disponivel">Disponibilidade</label>
+          <select class="entrada" id="filtro-disponivel" name="disponivel">
+            <option value="">Todas</option>
+            <option value="sim">Disponível</option>
+            <option value="sob-encomenda">Sob encomenda</option>
+            <option value="nao">Esgotado</option>
+          </select>
+        </div>
+        {% if site.mostrarPrecos and catalogo.faixasPreco.length %}
+        <div class="campo">
+          <label for="filtro-preco">Preço</label>
+          <select class="entrada" id="filtro-preco" name="preco">
+            <option value="">Todos</option>
+            {% for f in catalogo.faixasPreco %}
+            <option value="{{ f.valor }}">{% if f.de == 0 %}Até {{ f.ate | preco }}{% elif f.ate %}{{ f.de | preco }} a {{ f.ate | preco }}{% else %}A partir de {{ f.de | preco }}{% endif %}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        <div class="campo">
+          <label for="filtro-ordem">Ordenar por</label>
+          <select class="entrada" id="filtro-ordem" name="ordem">
+            <option value="">Recomendados</option>
+            <option value="nome">Nome (A–Z)</option>
+            {% if site.mostrarPrecos and catalogo.temPrecos %}
+            <option value="preco">Menor preço</option>
+            <option value="preco-desc">Maior preço</option>
+            {% endif %}
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div class="filtros__resumo so-com-js">
+      <p class="filtros__contagem" aria-live="polite" aria-atomic="true" data-contagem></p>
+      <span class="filtro-nota" data-filtro-nota hidden>Nota: <strong data-filtro-nota-texto></strong>
+        <button type="button" data-remover-nota>{{ icone('fechar') }}<span class="visualmente-oculto">Remover filtro de nota</span></button>
+      </span>
+      <button class="botao botao--leve botao--pequeno" type="button" data-limpar hidden>Limpar filtros</button>
+    </div>
+
+    <div data-resultados hidden>
+      <h2 class="visualmente-oculto">Resultados</h2>
+      <ul class="grade-produtos" data-grade></ul>
+    </div>
+
+    <div class="nenhum-resultado" data-vazio hidden>
+      <h2>Nenhum perfume encontrado</h2>
+      <p>Tente outra nota ou remova alguns filtros.</p>
+      <button class="botao botao--contorno" type="button" data-limpar>Limpar filtros</button>
+    </div>
+
+    <div data-agrupado>
+      {% for secao in catalogo.secoes %}
+      <section class="grupo-catalogo" aria-labelledby="grupo-{{ secao.linha }}">
+        <h2 id="grupo-{{ secao.linha }}">{{ secao.rotulo }}</h2>
+        {% for grupo in secao.grupos %}
+        <div class="subgrupo-catalogo">
+          <h3>{{ grupo.rotulo }}</h3>
+          <ul class="grade-produtos">
+            {% for produto in grupo.produtos %}{{ card(produto, 4) }}{% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </section>
+      {% endfor %}
+      {% if not catalogo.produtos.length %}<p>Em breve, os perfumes aparecerão aqui.</p>{% endif %}
+    </div>
+  </div>
+</div>

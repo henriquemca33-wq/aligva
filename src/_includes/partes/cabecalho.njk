@@ -1,0 +1,33 @@
+{%- set menu = [
+  { url: '/catalogo/', rotulo: 'Catálogo' },
+  { url: '/encomendas/', rotulo: 'Encomendas' },
+  { url: '/sobre/', rotulo: 'Sobre' },
+  { url: '/como-comprar/', rotulo: 'Como comprar' },
+  { url: '/catalogo-aligva.pdf', rotulo: 'Catálogo em PDF' }
+] -%}
+<header class="cabecalho">
+  <div class="cabecalho__barra container">
+    <a class="marca" href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>
+      {% if catalogo.marca.logo %}<img src="{{ catalogo.marca.logo }}" alt="Aligva" width="140" height="30">
+      {% else %}<span class="marca__texto" aria-hidden="true">ALIGVA</span><span class="visualmente-oculto">Aligva</span>{% endif %}
+      <span class="visualmente-oculto"> — página inicial</span>
+    </a>
+    <nav id="menu" class="menu" aria-label="Principal">
+      <ul>
+        {% for item in menu %}
+        <li><a href="{{ item.url }}"{% if page.url.startsWith(item.url) %} aria-current="page"{% endif %}{% if item.url.endsWith('.pdf') %} download{% endif %}>{{ item.rotulo }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="cabecalho__acoes">
+      <button class="botao-icone botao-sacola so-com-js" type="button" aria-haspopup="dialog" aria-controls="sacola" data-abrir-sacola>
+        {{ icone('sacola') }}
+        <span class="visualmente-oculto" data-sacola-rotulo>Sacola, vazia</span>
+        <span class="contador" data-contador data-vazio aria-hidden="true">0</span>
+      </button>
+      <button class="botao-icone botao-menu so-com-js" type="button" aria-expanded="false" aria-controls="menu" data-botao-menu>
+        {{ icone('menu') }}<span class="visualmente-oculto">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>

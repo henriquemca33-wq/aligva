@@ -1,0 +1,175 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: catalogo.produtos
+  size: 1
+  alias: produto
+  addAllPagesToCollections: true
+permalink: "/perfume/{{ produto.slug }}/"
+---
+{% from "partes/macros.njk" import card, icone, imagem, semFoto, selos %}
+{% set p = produto %}
+{% if p.linha == 'encomenda' %}{% set tipoMensagem = 'encomenda' %}{% elif p.disponivel == 'nao' %}{% set tipoMensagem = 'duvida' %}{% else %}{% set tipoMensagem = 'pedido' %}{% endif %}
+{% set temPreco = site.mostrarPrecos and p.precos.length %}
+
+<div class="container" data-produto-pagina>
+  <nav class="trilha" aria-label="Você está em">
+    <ol>
+      <li><a href="/">Início</a></li>
+      <li><a href="/catalogo/">Catálogo</a></li>
+      {% if p.linha == 'encomenda' %}<li><a href="/encomendas/">Encomendas</a></li>{% endif %}
+      <li><span aria-current="page">{{ p.nome }}</span></li>
+    </ol>
+  </nav>
+
+  <article class="produto">
+    <section class="galeria" aria-label="Fotos de {{ p.nome }}" data-galeria>
+      {% if p.fotos.length %}
+      <ul class="galeria__trilho" data-trilho{% if p.fotos.length > 1 %} tabindex="0" aria-label="Fotos — use as setas do teclado para navegar"{% endif %}>
+        {% for foto in p.fotos %}
+        <li class="galeria__slide" data-slide>
+          <a class="galeria__ampliar" href="{{ foto.src }}" data-ampliar="{{ loop.index0 }}" aria-label="Ampliar foto {{ loop.index }} de {{ p.fotos.length }}">
+            {{ imagem(foto, "(min-width: 56rem) 50vw, 100vw", loop.first) }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if p.fotos.length > 1 %}
+      <div class="galeria__controles so-com-js">
+        <p class="galeria__status" aria-live="polite" data-galeria-status>Foto 1 de {{ p.fotos.length }}</p>
+        <div class="galeria__setas">
+          <button class="botao-icone" type="button" data-anterior>{{ icone('esquerda') }}<span class="visualmente-oculto">Foto anterior</span></button>
+          <button class="botao-icone" type="button" data-proxima>{{ icone('direita') }}<span class="visualmente-oculto">Próxima foto</span></button>
+        </div>
+      </div>
+      <ul class="galeria__miniaturas so-com-js">
+        {% for foto in p.fotos %}
+        <li><button type="button" data-miniatura="{{ loop.index0 }}"{% if loop.first %} aria-current="true"{% endif %}><img src="{{ foto.miniatura }}" alt="Ver foto {{ loop.index }}" width="64" height="80" loading="lazy"></button></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <dialog class="ampliada" aria-label="Foto ampliada de {{ p.nome }}" data-ampliada>
+        <div class="ampliada__topo"><button class="botao-icone" type="button" data-fechar-ampliada>{{ icone('fechar') }}<span class="visualmente-oculto">Fechar</span></button></div>
+        <div class="ampliada__imagem"><img src="{{ p.fotos[0].src }}" alt="{{ p.fotos[0].alt }}" data-ampliada-img></div>
+        {% if p.fotos.length > 1 %}
+        <div class="ampliada__base">
+          <button class="botao-icone" type="button" data-anterior>{{ icone('esquerda') }}<span class="visualmente-oculto">Foto anterior</span></button>
+          <span data-ampliada-status>1 de {{ p.fotos.length }}</span>
+          <button class="botao-icone" type="button" data-proxima>{{ icone('direita') }}<span class="visualmente-oculto">Próxima foto</span></button>
+        </div>
+        {% endif %}
+      </dialog>
+      {% else %}
+      <div class="galeria__trilho"><div class="galeria__slide">{{ semFoto(p.nome, false) }}</div></div>
+      {% endif %}
+    </section>
+
+    <div class="produto__info">
+      {{ selos(p) }}
+      <h1>{{ p.nome }}</h1>
+      <p class="produto__meta">
+        <span>{{ p.linhaRotulo if p.linha != 'encomenda' else 'Encomenda' }}</span>
+        <span>{{ p.generoRotulo }}</span>
+        {% if p.familiaRotulo %}<span>{{ p.familiaRotulo }}</span>{% endif %}
+      </p>
+      {% if p.linha == 'linha-aligva' %}<p class="produto__concentracao">Extrato · quase 30% de fragrância</p>{% endif %}
+
+      {% if p.descricao or p.descricaoCurta %}
+      <div class="produto__descricao texto-corrido">{{ (p.descricao or p.descricaoCurta) | markdown | safe }}</div>
+      {% endif %}
+
+      {% if p.todasNotas.length %}
+      <section class="piramide" aria-labelledby="titulo-piramide">
+        <h2 id="titulo-piramide">Pirâmide olfativa</h2>
+        <ol>
+          {% for camada in [
+            { chave: 'saida', nome: 'Saída', dica: 'primeiras impressões' },
+            { chave: 'coracao', nome: 'Coração', dica: 'o corpo do perfume' },
+            { chave: 'fundo', nome: 'Fundo', dica: 'o que fica na pele' }
+          ] %}
+          {% if p.notas[camada.chave].length %}
+          <li class="piramide__camada piramide__camada--{{ camada.chave }}">
+            <span class="piramide__rotulo">{{ camada.nome }}<small>{{ camada.dica }}</small></span>
+            <ul class="piramide__notas">
+              {% for nota in p.notas[camada.chave] %}<li><a href="/catalogo/?nota={{ nota | normalizar | urlencode }}" title="Ver perfumes com {{ nota }}">{{ nota }}</a></li>{% endfor %}
+            </ul>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ol>
+      </section>
+      {% endif %}
+
+      {% set tagCompra = 'div' if p.disponivel == 'nao' else 'form' %}
+      <{{ tagCompra }} class="produto__compra" data-form-compra
+        data-slug="{{ p.slug }}" data-nome="{{ p.nome }}" data-tipo="{{ tipoMensagem }}"
+        data-precos="{% for x in p.precos %}{{ x.tamanho }}:{{ x.preco }}{% if not loop.last %},{% endif %}{% endfor %}"
+        data-imagem="{{ (p.fotos[0].miniatura | comPrefixo) if p.fotos.length else '' }}">
+        {% if temPreco %}
+        <p class="produto__preco" data-preco-atual>{{ p.precos[0].preco | preco }}</p>
+        {% elif site.mostrarPrecos %}
+        <p class="produto__aviso">Valor sob consulta.</p>
+        {% endif %}
+
+        <fieldset class="tamanhos">
+          <legend class="rotulo">Tamanho</legend>
+          <div class="tamanhos__opcoes">
+            {% for tamanho in p.tamanhos %}
+            {% set precoTamanho = '' %}
+            {% for x in p.precos %}{% if x.tamanho == tamanho %}{% set precoTamanho = x.preco %}{% endif %}{% endfor %}
+            <div class="tamanho">
+              <input type="radio" name="tamanho" id="tamanho-{{ tamanho }}" value="{{ tamanho }}"{% if loop.first %} checked{% endif %}>
+              <label for="tamanho-{{ tamanho }}"><strong>{{ tamanho }} mL</strong>{% if site.mostrarPrecos and precoTamanho %}<span>{{ precoTamanho | preco }}</span>{% endif %}</label>
+            </div>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        {% if p.disponivel == 'nao' %}
+        <p class="produto__aviso">Esgotado no momento. Fale com a gente para saber quando volta.</p>
+        {% elif p.disponivel == 'sob-encomenda' %}
+        <p class="produto__aviso">Produzido sob encomenda{% if site.linhas.encomendas.prazoProducao %} — prazo de produção: {{ site.linhas.encomendas.prazoProducao }}{% endif %}.</p>
+        {% endif %}
+
+        {% if p.disponivel != 'nao' %}
+        <div class="produto__linha-qtd so-com-js">
+          <label class="rotulo" for="quantidade">Quantidade</label>
+          <div class="quantidade">
+            <button type="button" data-qtd="-1">{{ icone('menos') }}<span class="visualmente-oculto">Diminuir quantidade</span></button>
+            <input type="number" id="quantidade" name="quantidade" value="1" min="1" max="20" inputmode="numeric">
+            <button type="button" data-qtd="1">{{ icone('mais') }}<span class="visualmente-oculto">Aumentar quantidade</span></button>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="produto__acoes">
+          {% if p.disponivel != 'nao' %}
+          <button class="botao botao--bloco so-com-js" type="submit">{{ icone('sacola') }} Adicionar à sacola</button>
+          {% endif %}
+          {% if site.whatsapp.numero %}
+          <a class="botao botao--contorno botao--bloco" href="{{ p.nome | mensagemProduto(tipoMensagem) | whatsapp }}" target="_blank" rel="noopener" data-whatsapp-produto>
+            {{ icone('conversa') }}
+            {% if tipoMensagem == 'encomenda' %}Encomendar pelo WhatsApp{% elif tipoMensagem == 'duvida' %}Perguntar pelo WhatsApp{% else %}Pedir agora pelo WhatsApp{% endif %}
+          </a>
+          {% endif %}
+          {% if p.linkLoja %}
+          <a class="botao botao--leve botao--bloco" href="{{ p.linkLoja }}" target="_blank" rel="noopener">{{ icone('loja') }} Comprar na loja</a>
+          {% endif %}
+        </div>
+        <div class="produto__compartilhar so-com-js">
+          <button class="botao botao--leve botao--pequeno" type="button" data-compartilhar>{{ icone('compartilhar') }} Compartilhar</button>
+        </div>
+      </{{ tagCompra }}>
+    </div>
+  </article>
+
+  {% set parecidos = p.relacionados | produtosPorSlug(catalogo.porSlug) %}
+  {% if parecidos.length %}
+  <section class="secao" aria-labelledby="titulo-parecidos">
+    <div class="cabecalho-secao"><h2 id="titulo-parecidos">Você também pode gostar</h2></div>
+    <ul class="grade-produtos">
+      {% for r in parecidos %}{{ card(r) }}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>

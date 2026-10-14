@@ -1,0 +1,20 @@
+<ol class="passos">
+  <li>
+    <h3>Escolha</h3>
+    <p>Veja as notas de cada perfume no catálogo e escolha o tamanho: 50 mL ou 100 mL.</p>
+  </li>
+  <li>
+    <h3>Monte a sacola</h3>
+    <p>Adicione os perfumes à sacola. Não precisa de cadastro: ela fica guardada só neste aparelho.</p>
+  </li>
+  <li>
+    {% if site.whatsapp.numero %}
+    <h3>Envie pelo WhatsApp</h3>
+    <p>A mensagem vai pronta. Na conversa, combinamos o pagamento e o envio pelos Correios ou transportadora.</p>
+    {% else %}
+    <h3>Envie o pedido</h3>
+    <p>O pedido vai pronto para a Aligva. Combinamos o pagamento e o envio pelos Correios ou transportadora.</p>
+    {% endif %}
+  </li>
+</ol>
+<p class="texto-suave texto-pequeno">Prefere comprar sozinho? A Linha Aligva também está na <a href="{{ site.loja }}" target="_blank" rel="noopener">loja online</a>.</p>

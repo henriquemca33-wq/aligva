@@ -1,0 +1,84 @@
+---
+layout: layouts/impressao.njk
+title: Catálogo para impressão
+description: Catálogo da Aligva em formato A4, para imprimir ou salvar em PDF.
+permalink: /catalogo-impressao/
+naoIndexar: true
+---
+{% from "partes/macros.njk" import semFoto %}
+<div class="impressao-barra">
+  <p>Prévia em A4. Para gerar o PDF, toque em “Baixar PDF” e escolha <strong>Salvar como PDF</strong>.</p>
+  <div class="grupo-botoes">
+    <a class="botao botao--leve botao--pequeno" href="/">Voltar ao site</a>
+    <button class="botao botao--pequeno so-com-js" type="button" data-imprimir>Baixar PDF</button>
+  </div>
+</div>
+
+<main>
+  <section class="folha folha--capa" aria-label="Capa">
+    <div class="capa__marca">{% if catalogo.marca.logo %}<img src="{{ catalogo.marca.logo }}" alt="Aligva">{% else %}ALIGVA{% endif %}</div>
+    <h1 class="capa__titulo">Catálogo de perfumes</h1>
+    <p class="capa__sub">Perfumaria artesanal · Santa Catarina</p>
+    <p class="capa__rodape">{{ catalogo.atualizadoEm | mesAno }}</p>
+  </section>
+
+  <section class="folha folha--indice" aria-labelledby="titulo-indice">
+    <h2 id="titulo-indice">Índice</h2>
+    <ol class="indice">
+      {% for secao in catalogo.secoes %}
+      <li><a href="#imp-{{ secao.linha }}">{{ secao.rotulo }}</a></li>
+      {% for grupo in secao.grupos %}
+      <li class="indice__sub"><a href="#imp-{{ secao.linha }}-{{ grupo.genero }}">{{ grupo.rotulo }}</a><span>{{ grupo.produtos.length }} {{ 'perfume' if grupo.produtos.length == 1 else 'perfumes' }}</span></li>
+      {% endfor %}
+      {% endfor %}
+    </ol>
+    <div class="indice__nota">
+      <p><strong>Linha Aligva</strong> — extratos com quase 30% de fragrância, em frascos de 50 mL e 100 mL.</p>
+      <p><strong>Encomendas</strong> — perfumes fora da linha, produzidos sob pedido{% if site.linhas.encomendas.prazoProducao %} (prazo de produção: {{ site.linhas.encomendas.prazoProducao }}){% endif %}.</p>
+      <p><strong>{{ site.linhaAutoral.nome }}</strong> — linha autoral. {{ site.linhaAutoral.status }}.</p>
+    </div>
+  </section>
+
+  {% for secao in catalogo.secoes %}
+  <section class="folha folha--fluxo grupo-impressao" id="imp-{{ secao.linha }}" aria-labelledby="imp-titulo-{{ secao.linha }}">
+    <h2 id="imp-titulo-{{ secao.linha }}">{{ secao.rotulo }}</h2>
+    {% for grupo in secao.grupos %}
+    <h3 id="imp-{{ secao.linha }}-{{ grupo.genero }}">{{ grupo.rotulo }}</h3>
+    <ul class="grade-impressao">
+      {% for p in grupo.produtos %}
+      <li class="item-impressao">
+        <div class="item-impressao__foto">
+          {% if p.fotos.length %}<img src="{{ p.fotos[0].medio }}" alt="" width="{{ p.fotos[0].largura }}" height="{{ p.fotos[0].altura }}">{% else %}{{ semFoto(p.nome) }}{% endif %}
+        </div>
+        <h4>{{ p.nome }}</h4>
+        <p>{{ p.familiaRotulo }}{% if p.familiaRotulo and p.disponivel != 'sim' %} · {% endif %}{% if p.disponivel != 'sim' %}{{ p.disponivelRotulo }}{% endif %}</p>
+        {% if p.todasNotas.length %}
+        <dl>
+          {% if p.notas.saida.length %}<dt>Saída</dt><dd>{{ p.notas.saida | join(', ') }}</dd>{% endif %}
+          {% if p.notas.coracao.length %}<dt>Coração</dt><dd>{{ p.notas.coracao | join(', ') }}</dd>{% endif %}
+          {% if p.notas.fundo.length %}<dt>Fundo</dt><dd>{{ p.notas.fundo | join(', ') }}</dd>{% endif %}
+        </dl>
+        {% endif %}
+        {% if site.mostrarPrecos and p.precos.length %}
+        <p class="item-impressao__preco">{% for x in p.precos %}{{ x.tamanho }} mL {{ x.preco | preco }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </section>
+  {% endfor %}
+
+  <section class="folha folha--contracapa" aria-label="Contatos">
+    <div class="capa__marca">ALIGVA</div>
+    <p class="capa__sub">Pedidos e informações</p>
+    <ul class="contracapa__contatos">
+      {% if site.whatsapp.numero %}<li>WhatsApp: {{ site.whatsapp.numero | telefone }}</li>{% endif %}
+      {% if site.instagram.usuario %}<li>Instagram: @{{ site.instagram.usuario | replace('@', '') }}</li>{% endif %}
+      <li>{{ site.email }}</li>
+      <li>Loja online: {{ site.loja | replace('https://', '') }}</li>
+      <li>Catálogo online: {{ site.urlBase | replace('https://', '') }}</li>
+    </ul>
+    <p class="capa__rodape">Envio pelos Correios ou transportadora. {% if site.mostrarPrecos %}Preços sujeitos a alteração; confira o valor atualizado no momento do pedido.{% endif %}</p>
+  </section>
+</main>

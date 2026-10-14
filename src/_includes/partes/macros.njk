@@ -1,0 +1,82 @@
+{# ---------------------------------------------------------------
+   Macros reutilizáveis: ícones, imagens, placeholder, card, preço.
+   --------------------------------------------------------------- #}
+
+{% macro icone(nome) %}
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+{% if nome == 'sacola' %}<path d="M5 8h14l-1 12.2a1 1 0 0 1-1 .8H7a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/>
+{% elif nome == 'conversa' %}<path d="M20 11.5c0 4.1-3.6 7.5-8 7.5-1.3 0-2.5-.3-3.6-.8L4 19.5l1.2-3.6A7.2 7.2 0 0 1 4 11.5C4 7.4 7.6 4 12 4s8 3.4 8 7.5Z"/><path d="M9 10.5h6M9 13.5h4"/>
+{% elif nome == 'instagram' %}<rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".6" fill="currentColor"/>
+{% elif nome == 'email' %}<rect x="3.5" y="5.5" width="17" height="13" rx="1"/><path d="m4 6.5 8 6 8-6"/>
+{% elif nome == 'loja' %}<path d="M4 9.5 5.5 4.5h13L20 9.5"/><path d="M4 9.5h16v1a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0A2.7 2.7 0 0 1 4 10.5v-1Z"/><path d="M5.5 13v6.5h13V13"/>
+{% elif nome == 'fechar' %}<path d="M6 6l12 12M18 6 6 18"/>
+{% elif nome == 'esquerda' %}<path d="M15 5l-7 7 7 7"/>
+{% elif nome == 'direita' %}<path d="M9 5l7 7-7 7"/>
+{% elif nome == 'compartilhar' %}<path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/>
+{% elif nome == 'mais' %}<path d="M12 5v14M5 12h14"/>
+{% elif nome == 'menos' %}<path d="M5 12h14"/>
+{% elif nome == 'menu' %}<path d="M4 8h16M4 16h16"/>
+{% elif nome == 'busca' %}<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>
+{% elif nome == 'documento' %}<path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20V3.5Z"/><path d="M14 3.5V8h4M9.5 12.5h5M9.5 15.5h5"/>
+{% endif %}
+</svg>
+{% endmacro %}
+
+{# Imagem responsiva gerada pelo eleventy-img. #}
+{% macro imagem(foto, tamanhos="100vw", prioridade=false, classe="") %}
+<picture>
+  {% for fonte in foto.fontes %}{% if not loop.last %}<source type="{{ fonte.tipo }}" srcset="{{ fonte.srcset }}" sizes="{{ tamanhos }}">{% endif %}{% endfor %}
+  <img src="{{ foto.medio }}" srcset="{{ (foto.fontes | last).srcset }}" sizes="{{ tamanhos }}" width="{{ foto.largura }}" height="{{ foto.altura }}" alt="{{ foto.alt }}"{% if classe %} class="{{ classe }}"{% endif %}{% if prioridade %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
+</picture>
+{% endmacro %}
+
+{# Placeholder elegante em SVG quando o perfume ainda não tem foto. #}
+{% macro semFoto(nome, decorativo=true) %}
+{% set linhas = nome | replace('EXEMPLO ', '') | quebrarLinhas(11) %}
+{% set tamanhoFonte = 34 if linhas | length < 3 else 28 %}
+<svg class="sem-foto" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" {% if decorativo %}aria-hidden="true" focusable="false"{% else %}role="img" aria-label="{{ nome }} — foto em breve"{% endif %}>
+  <rect width="400" height="500" fill="#f8f6f1"/>
+  <rect x="20" y="20" width="360" height="460" fill="none" stroke="#b08d57" stroke-width="0.8" opacity="0.6"/>
+  <text x="200" y="{{ 250 - (linhas | length - 1) * tamanhoFonte * 0.6 }}" text-anchor="middle" fill="#1f1d1a" font-size="{{ tamanhoFonte }}" font-family="Cormorant Garamond, Georgia, serif">
+    {% for l in linhas %}<tspan x="200" dy="{{ 0 if loop.first else tamanhoFonte * 1.2 }}">{{ l }}</tspan>{% endfor %}
+  </text>
+  <text x="200" y="430" text-anchor="middle" fill="#7d6135" font-size="11" letter-spacing="5" font-family="Jost, Helvetica, Arial, sans-serif">ALIGVA</text>
+</svg>
+{% endmacro %}
+
+{% macro selos(produto) %}
+{% if produto.novo or produto.disponivel != 'sim' %}
+<div class="selos">
+  {% if produto.novo %}<span class="selo selo--novo">Novo</span>{% endif %}
+  {% if produto.disponivel == 'nao' %}<span class="selo selo--esgotado">Esgotado</span>{% endif %}
+  {% if produto.disponivel == 'sob-encomenda' %}<span class="selo selo--encomenda">Sob encomenda</span>{% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# Card de produto. Os atributos data-* alimentam os filtros do catálogo. #}
+{% macro card(produto, nivelTitulo=3, tamanhos="(min-width: 70rem) 18rem, (min-width: 48rem) 30vw, 46vw") %}
+<li class="card{% if produto.disponivel == 'nao' %} card--esgotado{% endif %}"
+    data-produto="{{ produto.slug }}"
+    data-nome="{{ produto.nome | normalizar }}"
+    data-busca="{{ produto.busca }}"
+    data-notas="{{ produto.todasNotas | join('|') | normalizar }}"
+    data-linha="{{ produto.linha }}"
+    data-genero="{{ produto.genero }}"
+    data-familia="{{ produto.familia }}"
+    data-disponivel="{{ produto.disponivel }}"
+    data-preco="{{ produto.precoMin or '' }}"
+    data-ordem="{{ produto.ordem }}">
+  <div class="card__midia">
+    {% if produto.fotos.length %}{{ imagem(produto.fotos[0] | semAlt, tamanhos) }}{% else %}{{ semFoto(produto.nome) }}{% endif %}
+    {{ selos(produto) }}
+  </div>
+  <div class="card__corpo">
+    {% if produto.familiaRotulo %}<span class="card__familia">{{ produto.familiaRotulo }}</span>{% endif %}
+    <h{{ nivelTitulo }} class="card__nome"><a href="/perfume/{{ produto.slug }}/">{{ produto.nome }}</a></h{{ nivelTitulo }}>
+    {% if produto.notasPrincipais.length %}<p class="card__notas">{{ produto.notasPrincipais | join(' · ') }}</p>{% endif %}
+    {% set p = produto | precoAPartir %}
+    {% if p %}<p class="card__preco">{{ p }}</p>{% endif %}
+  </div>
+</li>
+{% endmacro %}

@@ -1,0 +1,6 @@
+{# Analytics sem cookies — só é incluído quando site.analytics.ativo = true. #}
+{% if site.analytics.provedor == 'goatcounter' %}
+<script data-goatcounter="https://{{ site.analytics.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{% elif site.analytics.provedor == 'plausible' %}
+<script defer data-domain="{{ site.analytics.plausible }}" src="https://plausible.io/js/script.js"></script>
+{% endif %}

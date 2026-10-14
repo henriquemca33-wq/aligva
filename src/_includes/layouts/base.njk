@@ -1,0 +1,26 @@
+{%- from "partes/macros.njk" import icone -%}
+<!doctype html>
+<html lang="pt-BR" class="sem-js"
+  data-base="{{ site.pathPrefix }}"
+  data-mostrar-precos="{{ 'sim' if site.mostrarPrecos else 'nao' }}"
+  {% if site.whatsapp.numero %}data-whatsapp="{{ site.whatsapp.numero }}"{% endif %}
+  data-email="{{ site.email }}">
+<head>
+  {% include "partes/head.njk" %}
+</head>
+<body class="{{ classeCorpo }}">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  {% include "partes/cabecalho.njk" %}
+  <main id="conteudo" tabindex="-1">
+    {{ content | safe }}
+  </main>
+  {% include "partes/rodape.njk" %}
+  {% include "partes/sacola.njk" %}
+  {% if site.whatsapp.numero and not semWhatsappFlutuante %}
+  <a class="whatsapp-flutuante" href="{{ site.whatsapp.mensagemInicial | whatsapp }}" target="_blank" rel="noopener" aria-label="Falar com a Aligva pelo WhatsApp (abre em nova aba)">{{ icone('conversa') }}</a>
+  {% endif %}
+  <div class="aviso-rapido" role="status" aria-live="polite" data-aviso-rapido></div>
+  <script type="module" src="{{ '/assets/js/principal.js' | versao }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

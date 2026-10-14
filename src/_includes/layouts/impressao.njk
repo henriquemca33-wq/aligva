@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="pt-BR" class="sem-js" data-base="{{ site.pathPrefix }}">
+<head>
+  {% include "partes/head.njk" %}
+</head>
+<body class="impressao-tela">
+  {{ content | safe }}
+  <script type="module" src="{{ '/assets/js/principal.js' | versao }}"></script>
+</body>
+</html>

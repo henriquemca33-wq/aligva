@@ -1,0 +1,9 @@
+slug;nome;linha;genero;familia;notas_saida;notas_coracao;notas_fundo;descricao_curta;descricao;preco_50;preco_100;disponivel;destaque;novo;ordem;link_loja;fotos;referencia;exemplo;publicar
+circe;Circe;linha-aligva;feminino;floral;flor de maracujá;gardênia;baunilha;;;;;sim;sim;;1;;;;;sim
+exemplo-cedro;EXEMPLO Cedro;linha-aligva;masculino;amadeirado;bergamota|pimenta-rosa;cedro|vetiver;âmbar|almíscar;EXEMPLO — produto fictício para testar o site. Apague esta linha.;"EXEMPLO — texto fictício.
+
+Use este campo para contar a história do perfume. Aceita **negrito** e *itálico*.";119;169;nao;;sim;10;;;COD-EX-01;sim;sim
+exemplo-neroli;EXEMPLO Neroli;linha-aligva;compartilhavel;cítrico;limão siciliano|bergamota;flor de laranjeira|neroli;almíscar;EXEMPLO — produto fictício para testar o site. Apague esta linha.;EXEMPLO — texto fictício.;129;179;sim;sim;sim;20;;;COD-EX-02;sim;sim
+exemplo-encomenda-floral;EXEMPLO Encomenda Floral;encomenda;feminino;floral;pera;rosa|jasmim;patchouli|baunilha;EXEMPLO — encomenda fictícia. Apague esta linha.;;139;189;sob-encomenda;;;30;;;COD-EX-03;sim;sim
+exemplo-encomenda-aromatica;EXEMPLO Encomenda Aromática;encomenda;masculino;aromático;lavanda|toranja;sálvia;fava tonka|cedro;EXEMPLO — encomenda fictícia. Apague esta linha.;;139;189;sob-encomenda;;;40;;;COD-EX-04;sim;sim
+exemplo-encomenda-gourmand;EXEMPLO Encomenda Gourmand;encomenda;compartilhavel;gourmand;cardamomo;café|íris;baunilha|âmbar;EXEMPLO — encomenda fictícia. Apague esta linha.;;149;199;sob-encomenda;;;50;;;COD-EX-05;sim;sim

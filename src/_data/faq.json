@@ -1,0 +1,37 @@
+{
+  "_comentario": "Perguntas frequentes. Uma pergunta com PREENCHER na resposta NÃO aparece no site até ser respondida.",
+  "perguntas": [
+    {
+      "pergunta": "Como faço um pedido?",
+      "resposta": "Monte sua sacola aqui no catálogo e toque em “Enviar pedido pelo WhatsApp”: a mensagem já vai pronta com os perfumes, tamanhos e quantidades. Se preferir, compre direto na loja online."
+    },
+    {
+      "pergunta": "Qual é a concentração dos perfumes?",
+      "resposta": "Os perfumes da Linha Aligva são extratos com quase 30% de fragrância."
+    },
+    {
+      "pergunta": "O que são as encomendas?",
+      "resposta": "São perfumes fora da Linha Aligva, produzidos sob pedido. Eles não ficam na loja online: é só chamar pelo WhatsApp para encomendar."
+    },
+    {
+      "pergunta": "Como é feito o envio?",
+      "resposta": "Pelos Correios ou por transportadora, pela loja online ou combinado no WhatsApp. Não há retirada no local nem entrega própria."
+    },
+    {
+      "pergunta": "Qual é o prazo de produção das encomendas?",
+      "resposta": "PREENCHER"
+    },
+    {
+      "pergunta": "Quais são as formas de pagamento?",
+      "resposta": "PREENCHER"
+    },
+    {
+      "pergunta": "Qual é o prazo de entrega?",
+      "resposta": "PREENCHER"
+    },
+    {
+      "pergunta": "Posso trocar ou devolver?",
+      "resposta": "PREENCHER"
+    }
+  ]
+}

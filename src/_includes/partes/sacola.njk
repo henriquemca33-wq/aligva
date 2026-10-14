@@ -1,0 +1,30 @@
+{# Gaveta da sacola. O conteúdo é preenchido pelo assets/js/sacola.js. #}
+<dialog class="sacola" id="sacola" aria-labelledby="sacola-titulo">
+  <div class="sacola__topo">
+    <h2 id="sacola-titulo">Sua sacola</h2>
+    <button class="botao-icone" type="button" data-fechar-sacola>{{ icone('fechar') }}<span class="visualmente-oculto">Fechar sacola</span></button>
+  </div>
+  <div class="sacola__corpo" data-sacola-corpo>
+    <div class="sacola__vazia" data-sacola-vazia>
+      <p>Sua sacola está vazia.</p>
+      <a class="botao botao--contorno" href="/catalogo/" data-fechar-sacola>Ver os perfumes</a>
+    </div>
+    <ul class="sacola__itens" data-sacola-itens></ul>
+  </div>
+  <div class="sacola__rodape" data-sacola-rodape hidden>
+    {% if site.mostrarPrecos %}
+    <p class="sacola__subtotal"><span>Subtotal</span> <strong data-sacola-subtotal></strong></p>
+    {% endif %}
+    <div class="campo">
+      <label for="sacola-observacoes">Observações (opcional)</label>
+      <textarea class="entrada" id="sacola-observacoes" rows="2" maxlength="500" data-sacola-observacoes placeholder="Ex.: é para presente"></textarea>
+    </div>
+    {% if site.whatsapp.numero %}
+    <a class="botao botao--bloco" href="#" target="_blank" rel="noopener" data-enviar-pedido>{{ icone('conversa') }} Enviar pedido pelo WhatsApp</a>
+    <p class="sacola__nota">O frete e a forma de pagamento são combinados na conversa. O site não guarda seus dados.</p>
+    {% else %}
+    <a class="botao botao--bloco" href="#" data-enviar-pedido data-canal="email">{{ icone('email') }} Enviar pedido por e-mail</a>
+    <p class="sacola__nota">O pedido abre no seu aplicativo de e-mail, pronto para enviar. O site não guarda seus dados.</p>
+    {% endif %}
+  </div>
+</dialog>

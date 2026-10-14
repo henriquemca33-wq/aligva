@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+title: Sobre a Aligva
+description: A Aligva é uma perfumaria artesanal brasileira, com produção própria e em pequena escala em Santa Catarina.
+permalink: /sobre/
+---
+{% from "partes/macros.njk" import imagem %}
+{% set s = site.sobre %}
+<div class="container">
+  <header class="cabecalho-pagina">
+    <span class="sobrescrito">Quem somos</span>
+    <h1>Sobre a Aligva</h1>
+    {% if s.introducao %}<p>{{ s.introducao }}</p>{% endif %}
+  </header>
+</div>
+
+<section class="secao" aria-label="Nossa história">
+  <div class="container duas-colunas">
+    {% if catalogo.marca.fotoSobre %}
+    <figure class="figura-marca">{{ imagem(catalogo.marca.fotoSobre, "(min-width: 56rem) 45vw, 100vw") }}</figure>
+    {% else %}
+    <div class="figura-marca figura-marca--vazia verge" aria-hidden="true"><span>ALIGVA</span></div>
+    {% endif %}
+    <div class="texto-corrido">
+      {% if s.quemSomos %}<h2>Quem somos</h2>{{ s.quemSomos | markdown | safe }}{% endif %}
+      {% if s.historia %}<h2>Nossa história</h2>{{ s.historia | markdown | safe }}{% endif %}
+      <h2>O que fazemos</h2>
+      <p>Perfumes produzidos por nós, em pequena escala, em Santa Catarina. Os perfumes da Linha Aligva são extratos com quase 30% de fragrância, em frascos de 50 mL e 100 mL.</p>
+      <p>Além da linha, produzimos <a href="/encomendas/">encomendas</a>: perfumes fora da linha, feitos sob pedido. E uma linha autoral, {{ site.linhaAutoral.nome }}, está em desenvolvimento.</p>
+      {% if s.processo %}<h2>Como produzimos</h2>{{ s.processo | markdown | safe }}{% endif %}
+      <span class="filete"></span>
+      <div class="grupo-botoes">
+        <a class="botao" href="/catalogo/">Conhecer os perfumes</a>
+        <a class="botao botao--leve" href="{{ site.loja }}" target="_blank" rel="noopener">Loja online</a>
+      </div>
+    </div>
+  </div>
+</section>
