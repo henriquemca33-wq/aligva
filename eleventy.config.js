@@ -25,7 +25,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.setNunjucksEnvironmentOptions({ autoescape: true, trimBlocks: true, lstripBlocks: true });
 
-  // Acrescenta o pathPrefix (ex.: /aligva-catalogo/) em todos os links e imagens do HTML.
+  // Acrescenta o pathPrefix (ex.: /aligva/) em todos os links e imagens do HTML.
   eleventyConfig.addPlugin(HtmlBasePlugin);
 
   // Arquivos copiados sem alteração.

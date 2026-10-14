@@ -19,7 +19,7 @@ Site estático em Eleventy 3, com fonte de dados em planilha CSV, publicado no G
 |---|---|
 | `npm run validar` | ✅ sem erros (11 avisos, todos de campos `PREENCHER`) |
 | `npm test` (33 testes) | ✅ 33/33: CSV com `;`, `,` e BOM; slug; preço; mensagem do WhatsApp com e sem preços; ausência de `referencia` e de `PREENCHER` em todo o `_site/`; termos proibidos; "quase 30%"; nenhum rastreador |
-| `npm run checar-links` | ✅ 288 links internos, 0 quebrados (testado também com o prefixo `/aligva-catalogo/`) |
+| `npm run checar-links` | ✅ 288 links internos, 0 quebrados (testado também com o prefixo `/aligva/`) |
 | `html-validate` | ✅ 0 erros |
 | Playwright (celular Pixel 7 + computador) | ✅ 10/10: home, filtro por gênero, busca por nota, `?nota=`, produto → sacola → link `wa.me` conferido, Esc fecha a gaveta, sacola persiste após recarregar, 404, impressão |
 | Lighthouse (celular, local) | Desempenho 99–100 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (início, catálogo, Circe, encomendas) |

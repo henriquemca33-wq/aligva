@@ -1,6 +1,6 @@
 # Domínio próprio: `catalogo.aligva.com.br`
 
-Por padrão, o catálogo fica em `https://<usuario>.github.io/aligva-catalogo/`. Este guia aponta o **subdomínio** `catalogo.aligva.com.br` para ele.
+Por padrão, o catálogo fica em `https://henriquemca33-wq.github.io/aligva/`. Este guia aponta o **subdomínio** `catalogo.aligva.com.br` para ele.
 
 > ⚠️ **Importante:** o domínio principal **`aligva.com.br` continua na Nuvemshop e não deve ser alterado.** Não mexa nos registros que já existem (o `@`, o `www` e os de e-mail). Você só vai **criar um registro novo**, para o subdomínio `catalogo`.
 
@@ -16,7 +16,7 @@ Por padrão, o catálogo fica em `https://<usuario>.github.io/aligva-catalogo/`.
    |---|---|
    | Tipo | `CNAME` |
    | Nome | `catalogo` |
-   | Dados / Destino | `<usuario>.github.io` (troque `<usuario>` pelo nome da conta ou organização do GitHub dona do repositório, **sem** `/aligva-catalogo`) |
+   | Dados / Destino | `henriquemca33-wq.github.io` (o nome da conta do GitHub dona do repositório, **sem** `/aligva` no final) |
 
 5. Salve. A propagação pode levar de alguns minutos até 24 horas.
 
@@ -42,13 +42,13 @@ Com isso, o build gera o arquivo `CNAME` dentro do site publicado. Na publicaç�
 
 - Abra `https://catalogo.aligva.com.br`: o catálogo deve aparecer com cadeado (HTTPS).
 - Abra `https://aligva.com.br`: a **loja** continua funcionando normalmente.
-- O endereço antigo (`<usuario>.github.io/aligva-catalogo/`) passa a redirecionar para o novo.
+- O endereço antigo (`henriquemca33-wq.github.io/aligva/`) passa a redirecionar para o novo.
 
 ## Problemas comuns
 
 | sintoma | causa provável |
 |---|---|
-| "DNS check unsuccessful" no GitHub | o registro ainda não propagou ou o destino está errado (deve ser `<usuario>.github.io`, sem barra). Espere e clique em **Check again**. |
+| "DNS check unsuccessful" no GitHub | o registro ainda não propagou ou o destino está errado (deve ser `henriquemca33-wq.github.io`, sem barra). Espere e clique em **Check again**. |
 | site sem estilo ou com links quebrados | o build antigo ainda está no ar. Rode a publicação de novo em **Actions → Publicar catálogo → Run workflow**. |
 | "Enforce HTTPS" indisponível | o certificado ainda está sendo emitido. Aguarde algumas horas. |
 | loja fora do ar | algum registro existente foi alterado por engano. Desfaça a mudança e mantenha **só** o novo `CNAME catalogo`. |

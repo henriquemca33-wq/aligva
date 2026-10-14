@@ -67,7 +67,7 @@ Variáveis de ambiente (opcionais):
 | variável | uso |
 |---|---|
 | `SITE_URL` | endereço público do site. O GitHub Actions preenche sozinho. |
-| `PATH_PREFIX` | subpasta do site (ex.: `/aligva-catalogo/`). O GitHub Actions preenche sozinho. |
+| `PATH_PREFIX` | subpasta do site (ex.: `/aligva/`). O GitHub Actions preenche sozinho. |
 | `PRODUCAO` | `true` faz o build falhar se houver produto de exemplo publicado |
 | `SITE_WHATSAPP` | número usado **só nos testes** automáticos |
 
@@ -117,7 +117,7 @@ modelo-produtos.csv            planilha modelo
 
 1. Em **Settings → Pages → Build and deployment → Source**, escolha **GitHub Actions** (uma vez só).
 2. Cada push na `main` publica automaticamente. Também dá para publicar manualmente em **Actions → Publicar catálogo → Run workflow**.
-3. O endereço fica em `https://<usuario>.github.io/aligva-catalogo/` até o domínio próprio ser configurado ([DOMINIO.md](DOMINIO.md)).
+3. O endereço fica em `https://henriquemca33-wq.github.io/aligva/` até o domínio próprio ser configurado ([DOMINIO.md](DOMINIO.md)).
 
 ## Proteções automáticas
 
