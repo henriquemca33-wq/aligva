@@ -25,8 +25,11 @@ if (menu && botaoMenu) {
   });
 }
 
+// Botão "Baixar PDF" da versão para impressão.
+document.querySelector('[data-imprimir]')?.addEventListener('click', () => window.print());
+
 // Carrega a sacola em todas as páginas (contador no cabeçalho).
-import('./sacola.js');
+if (document.getElementById('sacola')) import('./sacola.js');
 
 // Módulos específicos de cada página.
 if (document.querySelector('[data-catalogo]')) import('./catalogo.js');

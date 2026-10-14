@@ -1,7 +1,4 @@
 {%- from "partes/macros.njk" import icone -%}
-{%- set tituloCompleto = (title + ' · ' + site.nome) if title else site.titulo -%}
-{%- set descricaoPagina = description or site.descricao -%}
-{%- set imagemCompartilhar = imagemOg or catalogo.marca.imagemOgPadrao -%}
 <!doctype html>
 <html lang="pt-BR" class="sem-js"
   data-base="{{ site.pathPrefix }}"
@@ -9,65 +6,7 @@
   {% if site.whatsapp.numero %}data-whatsapp="{{ site.whatsapp.numero }}"{% endif %}
   data-email="{{ site.email }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ tituloCompleto }}</title>
-  <meta name="description" content="{{ descricaoPagina }}">
-  <link rel="canonical" href="{{ page.url | absoluta }}">
-  {% if naoIndexar %}<meta name="robots" content="noindex, follow">{% endif %}
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
-  <script>document.documentElement.classList.replace('sem-js', 'com-js');</script>
-
-  {# Open Graph / Twitter #}
-  <meta property="og:site_name" content="{{ site.nome }}">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:type" content="{{ tipoOg or 'website' }}">
-  <meta property="og:title" content="{{ title or site.titulo }}">
-  <meta property="og:description" content="{{ descricaoPagina }}">
-  <meta property="og:url" content="{{ page.url | absoluta }}">
-  <meta property="og:image" content="{{ imagemCompartilhar | absoluta }}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ title or site.nome }} — {{ site.nome }}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ title or site.titulo }}">
-  <meta name="twitter:description" content="{{ descricaoPagina }}">
-  <meta name="twitter:image" content="{{ imagemCompartilhar | absoluta }}">
-
-  {# Ícones #}
-  <link rel="icon" href="/assets/marca/favicone.svg" type="image/svg+xml">
-  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/manifest.webmanifest">
-
-  {# Fontes #}
-  {% if site.fontes.origem == 'proprias' and site.fontes.proprias.titulo.familia %}
-  {% set fp = site.fontes.proprias %}
-  <style>
-    {% for grupo in [fp.titulo, fp.texto] %}{% if grupo.familia %}{% for a in grupo.arquivos %}
-    @font-face { font-family: "{{ grupo.familia }}"; src: url("{{ ('/assets/fontes/' + a.arquivo) | comPrefixo }}") format("woff2"); font-weight: {{ a.peso or 400 }}; font-style: {{ a.estilo or 'normal' }}; font-display: swap; }
-    {% endfor %}{% endif %}{% endfor %}
-    :root { --fonte-titulo: "{{ fp.titulo.familia }}", Georgia, serif;{% if fp.texto.familia %} --fonte-texto: "{{ fp.texto.familia }}", "Helvetica Neue", Arial, sans-serif;{% endif %} }
-  </style>
-  {% for grupo in [fp.titulo, fp.texto] %}{% if grupo.familia and grupo.arquivos.length %}
-  <link rel="preload" href="/assets/fontes/{{ grupo.arquivos[0].arquivo }}" as="font" type="font/woff2" crossorigin>
-  {% endif %}{% endfor %}
-  {% else %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="{{ site.fontes.google.url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ site.fontes.google.url }}"></noscript>
-  {% endif %}
-
-  <link rel="stylesheet" href="{{ '/assets/css/estilo.css' | versao }}">
-
-  {# Dados estruturados (schema.org) #}
-  {% for dados in (dadosEstruturados or []) %}
-  <script type="application/ld+json">{{ dados | jsonSeguro | safe }}</script>
-  {% endfor %}
-
-  {% if site.analytics.ativo %}{% include "partes/analytics.njk" %}{% endif %}
+  {% include "partes/head.njk" %}
 </head>
 <body class="{{ classeCorpo }}">
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
