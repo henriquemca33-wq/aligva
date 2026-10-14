@@ -1,0 +1,136 @@
+# Publica o catálogo no GitHub Pages.
+# Roda a cada push na main e também manualmente (aba Actions → "Publicar catálogo" → Run workflow).
+# Em pull requests, só testa (não publica).
+name: Publicar catálogo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validar, gerar e testar
+    runs-on: ubuntu-latest
+    env:
+      # Quando os produtos de exemplo forem apagados, crie a variável PRODUCAO=true em
+      # Settings → Secrets and variables → Actions → Variables. A partir daí, um exemplo
+      # publicado por engano impede a publicação.
+      PRODUCAO: ${{ vars.PRODUCAO || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Configurar GitHub Pages
+        id: pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Cache das imagens processadas
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: imagens-${{ hashFiles('src/assets/produtos/**', 'src/assets/marca/**', 'src/_data/produtos.csv', 'lib/imagens.js') }}
+          restore-keys: imagens-
+
+      - name: Cache do navegador (Playwright)
+        id: cache-playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Validar planilha e configuração
+        run: npm run validar
+
+      - name: Gerar o site
+        run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+
+      - name: Gerar o PDF do catálogo
+        run: npm run gerar-pdf
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+
+      - name: Testes automáticos
+        run: npm test
+
+      - name: Links internos
+        run: npm run checar-links
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
+
+      - name: Validação de HTML
+        run: npm run validar-html
+
+      - name: Teste de fumaça (celular e computador)
+        run: npm run teste-fumaca
+        env:
+          CI: 'true'
+
+      - name: Relatório do teste de fumaça
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-playwright
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Enviar o site para o GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Publicar
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch')
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  lighthouse:
+    name: Lighthouse (só relatório, não bloqueia)
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Lighthouse CI
+        run: npx --yes @lhci/cli@0.14.0 autorun || echo "::warning::Lighthouse abaixo da meta — veja o relatório no log."

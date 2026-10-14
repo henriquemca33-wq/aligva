@@ -104,13 +104,14 @@ export default function (eleventyConfig) {
   });
 
   // Domínio próprio: gera o arquivo CNAME quando "dominioProprio" estiver preenchido.
-  eleventyConfig.on('eleventy.after', ({ dir }) => {
+  eleventyConfig.on('eleventy.after', ({ directories }) => {
+    const saida = directories.output;
     // Imagens geradas pelo src/_data/catalogo.js em .cache/ (copiadas ao final,
     // porque são criadas durante o build).
     for (const [origem, alvo] of [['.cache/img', 'img'], ['.cache/og', 'og'], ['.cache/icones', '.']]) {
-      if (fs.existsSync(origem)) fs.cpSync(origem, path.join(dir.output, alvo), { recursive: true });
+      if (fs.existsSync(origem)) fs.cpSync(origem, path.join(saida, alvo), { recursive: true });
     }
-    const destino = path.join(dir.output, 'CNAME');
+    const destino = path.join(saida, 'CNAME');
     if (site.dominioProprio) fs.writeFileSync(destino, `${site.dominioProprio}\n`);
     else if (fs.existsSync(destino)) fs.rmSync(destino);
   });

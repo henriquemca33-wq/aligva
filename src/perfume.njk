@@ -100,7 +100,8 @@ permalink: "/perfume/{{ produto.slug }}/"
       </section>
       {% endif %}
 
-      <form class="produto__compra" data-form-compra
+      {% set tagCompra = 'div' if p.disponivel == 'nao' else 'form' %}
+      <{{ tagCompra }} class="produto__compra" data-form-compra
         data-slug="{{ p.slug }}" data-nome="{{ p.nome }}" data-tipo="{{ tipoMensagem }}"
         data-precos="{% for x in p.precos %}{{ x.tamanho }}:{{ x.preco }}{% if not loop.last %},{% endif %}{% endfor %}"
         data-imagem="{{ (p.fotos[0].miniatura | comPrefixo) if p.fotos.length else '' }}">
@@ -158,7 +159,7 @@ permalink: "/perfume/{{ produto.slug }}/"
         <div class="produto__compartilhar so-com-js">
           <button class="botao botao--leve botao--pequeno" type="button" data-compartilhar>{{ icone('compartilhar') }} Compartilhar</button>
         </div>
-      </form>
+      </{{ tagCompra }}>
     </div>
   </article>
 

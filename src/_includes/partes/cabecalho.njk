@@ -9,7 +9,7 @@
   <div class="cabecalho__barra container">
     <a class="marca" href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>
       {% if catalogo.marca.logo %}<img src="{{ catalogo.marca.logo }}" alt="Aligva" width="140" height="30">
-      {% else %}<span class="marca__texto" aria-label="Aligva">ALIGVA</span>{% endif %}
+      {% else %}<span class="marca__texto" aria-hidden="true">ALIGVA</span><span class="visualmente-oculto">Aligva</span>{% endif %}
       <span class="visualmente-oculto"> — página inicial</span>
     </a>
     <nav id="menu" class="menu" aria-label="Principal">

@@ -25,6 +25,7 @@ eleventyComputed:
         <label for="filtro-busca">Buscar por nome ou nota</label>
         <input class="entrada" type="search" id="filtro-busca" name="q" autocomplete="off" placeholder="Ex.: baunilha, Circe" enterkeyhint="search">
         {{ icone('busca') }}
+        <button class="visualmente-oculto" type="submit" tabindex="-1">Buscar</button>
       </div>
       <button class="botao botao--leve botao--bloco filtros__alternar" type="button" aria-expanded="false" aria-controls="filtros-campos" data-alternar-filtros>Filtrar e ordenar</button>
       <div class="filtros__campos" id="filtros-campos">
