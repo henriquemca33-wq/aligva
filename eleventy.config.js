@@ -52,6 +52,17 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('dataIso', (data) => new Date(data || Date.now()).toISOString().slice(0, 10));
   eleventyConfig.addFilter('mesAno', (data) => new Date(data || Date.now()).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }));
   eleventyConfig.addFilter('instagramUrl', (usuario) => (usuario ? `https://www.instagram.com/${String(usuario).replace(/^@/, '')}/` : ''));
+  eleventyConfig.addFilter('semAlt', (foto) => ({ ...foto, alt: '' }));
+  // Quebra um nome em linhas de até N caracteres (placeholder em SVG).
+  eleventyConfig.addFilter('quebrarLinhas', (texto, max = 12) => {
+    const linhas = [];
+    for (const palavra of String(texto).split(/\s+/).filter(Boolean)) {
+      const atual = linhas[linhas.length - 1];
+      if (atual && (atual + ' ' + palavra).length <= max) linhas[linhas.length - 1] = `${atual} ${palavra}`;
+      else linhas.push(palavra);
+    }
+    return linhas;
+  });
   eleventyConfig.addFilter('limitar', (lista, n) => (lista || []).slice(0, n));
 
   const md = markdownIt({ html: false, linkify: true, breaks: true, typographer: true });

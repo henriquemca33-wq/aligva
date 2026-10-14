@@ -1,0 +1,7 @@
+Pasta das imagens da marca.
+
+- logo.svg (ou logo.png): logotipo da Aligva. Se existir, aparece no cabeçalho
+  e na capa do catálogo em PDF. Se não existir, o site usa "ALIGVA" em texto.
+- Foto da abertura da página inicial: coloque o arquivo aqui e escreva o nome
+  dele em site.json → abertura.imagem (e uma descrição em abertura.imagemAlt).
+- Foto da página Sobre: idem, em site.json → sobre.foto e sobre.fotoAlt.

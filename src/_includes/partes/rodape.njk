@@ -1,0 +1,32 @@
+<footer class="rodape">
+  <div class="container rodape__grade">
+    <div class="rodape__marca">
+      <span class="marca__texto">ALIGVA</span>
+      <p>Perfumaria artesanal brasileira. Produção própria e em pequena escala, em Santa Catarina.</p>
+    </div>
+    <div>
+      <h2>Contato</h2>
+      <ul>
+        {% if site.whatsapp.numero %}<li><a href="{{ site.whatsapp.mensagemInicial | whatsapp }}" target="_blank" rel="noopener">{{ icone('conversa') }} WhatsApp</a></li>{% endif %}
+        {% if site.instagram.usuario %}<li><a href="{{ site.instagram.usuario | instagramUrl }}" target="_blank" rel="noopener">{{ icone('instagram') }} Instagram</a></li>{% endif %}
+        <li><a href="mailto:{{ site.email }}">{{ icone('email') }} {{ site.email }}</a></li>
+        <li><a href="{{ site.loja }}" target="_blank" rel="noopener">{{ icone('loja') }} Loja online</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Catálogo</h2>
+      <ul>
+        <li><a href="/catalogo/">Todos os perfumes</a></li>
+        <li><a href="/encomendas/">Encomendas</a></li>
+        <li><a href="/como-comprar/">Como comprar e envio</a></li>
+        <li><a href="/sobre/">Sobre a Aligva</a></li>
+        <li><a href="/catalogo-aligva.pdf" download>{{ icone('documento') }} Catálogo em PDF</a></li>
+        <li><a href="/catalogo-impressao/">Versão para impressão</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container rodape__base">
+    <p>© {{ catalogo.atualizadoEm | ano }} Aligva. Todos os direitos reservados.</p>
+    <p>Este site não usa cookies nem coleta dados pessoais. <a href="/privacidade/">Privacidade</a></p>
+  </div>
+</footer>
