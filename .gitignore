@@ -1,0 +1,10 @@
+node_modules/
+_site/
+_site-teste/
+.cache/
+test-results/
+playwright-report/
+.lighthouseci/
+.DS_Store
+Thumbs.db
+*.log

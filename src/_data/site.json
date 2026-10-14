@@ -1,0 +1,100 @@
+{
+  "_comentario": "Configuração geral do catálogo. Qualquer texto com PREENCHER não aparece no site até ser preenchido. Instruções no GUIA-DE-EDICAO.md. Nunca coloque aqui dados internos (custos, fornecedores, clientes).",
+  "nome": "Aligva",
+  "titulo": "Aligva · Perfumaria artesanal",
+  "descricao": "Catálogo da Aligva, perfumaria artesanal brasileira. Extratos com quase 30% de fragrância, produzidos em pequena escala em Santa Catarina.",
+  "url": "https://catalogo.aligva.com.br",
+  "pathPrefix": "/",
+  "dominioProprio": null,
+
+  "whatsapp": {
+    "_comentario": "Número em formato internacional, só dígitos: 55 + DDD + número. Ex.: 5548999999999",
+    "numero": "PREENCHER",
+    "mensagemInicial": "Olá, Aligva! Vim pelo catálogo online e gostaria de ajuda para escolher um perfume."
+  },
+  "instagram": {
+    "_comentario": "Apenas o nome de usuário, sem @. Ex.: aligva",
+    "usuario": "PREENCHER"
+  },
+  "email": "atendimento@aligva.com.br",
+  "loja": "https://aligva.com.br",
+
+  "mostrarPrecos": true,
+  "freteGratisAcima": null,
+  "faixasPreco": [149, 199, 299],
+
+  "abertura": {
+    "frase": "Perfumaria artesanal brasileira, em concentração de extrato.",
+    "texto": "Produção própria e em pequena escala, em Santa Catarina. Extratos com quase 30% de fragrância.",
+    "imagem": null,
+    "imagemAlt": null
+  },
+
+  "diferenciais": [
+    { "titulo": "Produção artesanal", "texto": "Produção própria, em pequena escala." },
+    { "titulo": "Extrato", "texto": "Quase 30% de fragrância na Linha Aligva." },
+    { "titulo": "Santa Catarina", "texto": "Feito no sul do Brasil." }
+  ],
+
+  "linhas": {
+    "linhaAligva": {
+      "nome": "Linha Aligva",
+      "texto": "Fragrâncias com nomes próprios, em extrato com quase 30% de fragrância. Frascos de 50 mL e 100 mL."
+    },
+    "encomendas": {
+      "nome": "Encomendas",
+      "texto": "Perfumes fora da linha, produzidos sob pedido. Organizados em femininos, masculinos e compartilháveis.",
+      "prazoProducao": "PREENCHER",
+      "comoFunciona": [
+        "Escolha o perfume na lista abaixo e chame a Aligva pelo WhatsApp.",
+        "Combinamos tamanho, valor e envio com você.",
+        "O perfume é produzido sob pedido e enviado pelos Correios ou por transportadora."
+      ]
+    }
+  },
+
+  "linhaAutoral": {
+    "_comentario": "Nome provisório da linha autoral. Troque o nome aqui; o site se atualiza sozinho.",
+    "nome": "Exclusif",
+    "status": "Em breve",
+    "texto": "Uma linha autoral da Aligva está em desenvolvimento."
+  },
+
+  "sobre": {
+    "introducao": "A Aligva é uma perfumaria artesanal brasileira, com produção própria e em pequena escala em Santa Catarina.",
+    "quemSomos": "PREENCHER",
+    "historia": "PREENCHER",
+    "processo": "PREENCHER",
+    "foto": null,
+    "fotoAlt": null
+  },
+
+  "envio": {
+    "texto": "Enviamos para todo o Brasil pelos Correios ou por transportadora — pela loja online ou combinado no WhatsApp. Não há retirada no local nem entrega própria.",
+    "prazo": "PREENCHER"
+  },
+
+  "afirmacoes": [],
+
+  "analytics": {
+    "_comentario": "Desligado por padrão. Para ligar: ativo=true, provedor 'goatcounter' ou 'plausible' e preencha o código/domínio. Ambos não usam cookies.",
+    "ativo": false,
+    "provedor": "goatcounter",
+    "goatcounter": null,
+    "plausible": null
+  },
+
+  "fontes": {
+    "_comentario": "origem: 'google' (padrão) ou 'proprias'. Para fontes próprias, coloque os .woff2 em src/assets/fontes/ e preencha 'proprias'. Só use fontes com licença para web.",
+    "origem": "google",
+    "google": {
+      "titulo": "Cormorant Garamond",
+      "texto": "Jost",
+      "url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+    },
+    "proprias": {
+      "titulo": { "familia": null, "arquivos": [] },
+      "texto": { "familia": null, "arquivos": [] }
+    }
+  }
+}

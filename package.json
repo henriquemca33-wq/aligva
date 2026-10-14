@@ -1,0 +1,30 @@
+{
+  "name": "aligva-catalogo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catálogo online estático da Aligva — perfumaria artesanal brasileira.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validar": "node scripts/validar.js",
+    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "checar-links": "node scripts/checar-links.js",
+    "validar-html": "html-validate \"_site/**/*.html\"",
+    "teste-fumaca": "playwright test",
+    "gerar-pdf": "node scripts/gerar-pdf.js",
+    "verificar": "npm run validar && npm run build && npm test && npm run checar-links && npm run validar-html"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^6.0.4",
+    "@playwright/test": "^1.56.1",
+    "csv-parse": "^7.0.3",
+    "html-validate": "^11.16.2",
+    "markdown-it": "^14.3.2",
+    "sharp": "^0.33.5"
+  }
+}
