@@ -4,6 +4,7 @@ pagination:
   data: catalogo.produtos
   size: 1
   alias: produto
+  addAllPagesToCollections: true
 permalink: "/perfume/{{ produto.slug }}/"
 ---
 {% from "partes/macros.njk" import card, icone, imagem, semFoto, selos %}
