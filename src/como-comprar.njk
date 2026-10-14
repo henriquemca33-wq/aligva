@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+title: Como comprar e envio
+description: Como pedir os perfumes da Aligva pelo WhatsApp ou pela loja online, formas de envio e perguntas frequentes.
+permalink: /como-comprar/
+---
+{% from "partes/macros.njk" import icone %}
+<div class="container">
+  <header class="cabecalho-pagina">
+    <span class="sobrescrito">Pedidos e envio</span>
+    <h1>Como comprar</h1>
+    <p>Você pode pedir {% if site.whatsapp.numero %}pelo WhatsApp, com a sacola deste catálogo,{% else %}por aqui, com a sacola deste catálogo,{% endif %} ou comprar direto na loja online.</p>
+  </header>
+</div>
+
+<section class="secao" aria-labelledby="titulo-passos">
+  <div class="container">
+    <h2 id="titulo-passos" class="visualmente-oculto">Passo a passo</h2>
+    {% include "partes/passos.njk" %}
+  </div>
+</section>
+
+<section class="secao secao--papel verge" aria-labelledby="titulo-canais">
+  <div class="container duas-colunas">
+    <div class="cartao-contato">
+      <h2 id="titulo-canais">{% if site.whatsapp.numero %}Pelo WhatsApp{% else %}Pela sacola do catálogo{% endif %}</h2>
+      <p class="texto-suave">Monte a sacola e envie o pedido: a mensagem vai pronta, com perfumes, tamanhos e quantidades. É também o caminho para as <a href="/encomendas/">encomendas</a>.</p>
+      {% if site.whatsapp.numero %}<a class="botao botao--contorno" href="{{ site.whatsapp.mensagemInicial | whatsapp }}" target="_blank" rel="noopener">{{ icone('conversa') }} Falar no WhatsApp</a>{% endif %}
+    </div>
+    <div class="cartao-contato">
+      <h2>Na loja online</h2>
+      <p class="texto-suave">A Linha Aligva também está na loja online, com pagamento e frete calculados no próprio site.</p>
+      <a class="botao botao--contorno" href="{{ site.loja }}" target="_blank" rel="noopener">{{ icone('loja') }} Ir para a loja</a>
+    </div>
+  </div>
+</section>
+
+<section class="secao" aria-labelledby="titulo-envio">
+  <div class="container duas-colunas">
+    <div>
+      <h2 id="titulo-envio">Envio</h2>
+      <p>{{ site.envio.texto }}</p>
+      {% if site.envio.prazo %}<p><strong>Prazo:</strong> {{ site.envio.prazo }}</p>{% endif %}
+      {% if site.freteGratisAcima %}<p><strong>Frete grátis</strong> em pedidos acima de {{ site.freteGratisAcima | preco }}.</p>{% endif %}
+    </div>
+    {% if faq.perguntas.length %}
+    <div>
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        {% for item in faq.perguntas %}
+        <details>
+          <summary>{{ item.pergunta }}</summary>
+          <div>{{ item.resposta | markdown | safe }}</div>
+        </details>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="secao" aria-labelledby="titulo-contato">
+  <div class="container container--texto centro">
+    <h2 id="titulo-contato">Ficou alguma dúvida?</h2>
+    <p class="texto-suave">Escreva para <a href="mailto:{{ site.email }}">{{ site.email }}</a>{% if site.whatsapp.numero %} ou chame no <a href="{{ site.whatsapp.mensagemInicial | whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}.</p>
+  </div>
+</section>

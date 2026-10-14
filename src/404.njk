@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+title: Página não encontrada
+description: A página que você procurou não existe ou mudou de endereço.
+permalink: /404.html
+naoIndexar: true
+eleventyExcludeFromCollections: true
+---
+<div class="container pagina-erro">
+  <p class="pagina-erro__codigo" aria-hidden="true">404</p>
+  <h1>Página não encontrada</h1>
+  <p class="texto-suave">O endereço pode ter mudado ou o perfume saiu do catálogo.</p>
+  <div class="grupo-botoes">
+    <a class="botao" href="/catalogo/">Ver o catálogo</a>
+    <a class="botao botao--leve" href="/">Página inicial</a>
+  </div>
+</div>

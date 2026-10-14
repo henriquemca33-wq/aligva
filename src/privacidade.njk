@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+title: Privacidade
+description: Este catálogo não usa cookies nem coleta dados pessoais.
+permalink: /privacidade/
+---
+<div class="container container--texto">
+  <header class="cabecalho-pagina">
+    <h1>Privacidade</h1>
+    <p>Resumo: este catálogo não usa cookies e não coleta dados pessoais.</p>
+  </header>
+  <div class="texto-corrido">
+    <h2>O que este site guarda</h2>
+    <p>Os itens da sua sacola ficam salvos <strong>só no seu aparelho</strong> (no armazenamento do navegador), para você não perder o pedido se fechar a página. Nada disso é enviado para a Aligva nem para ninguém. Para apagar, basta remover os itens da sacola ou limpar os dados do navegador.</p>
+    <h2>Cookies e estatísticas</h2>
+    {% if site.analytics.ativo %}
+    <p>Não usamos cookies. Para saber quantas pessoas visitam o catálogo, usamos uma ferramenta de estatísticas sem cookies e sem identificação pessoal ({{ 'GoatCounter' if site.analytics.provedor == 'goatcounter' else 'Plausible' }}).</p>
+    {% else %}
+    <p>Não usamos cookies, pixels de anúncio nem ferramentas de estatística.</p>
+    {% endif %}
+    <h2>Fontes</h2>
+    <p>As fontes do site são carregadas do Google Fonts, que recebe o endereço IP do seu aparelho para entregar os arquivos.</p>
+    <h2>WhatsApp, e-mail e loja online</h2>
+    <p>Quando você envia um pedido pelo WhatsApp ou por e-mail, ou compra na loja online, os dados que você informar seguem as políticas desses serviços e são usados pela Aligva apenas para atender o seu pedido.</p>
+    <h2>Contato</h2>
+    <p>Dúvidas sobre privacidade: <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+  </div>
+</div>

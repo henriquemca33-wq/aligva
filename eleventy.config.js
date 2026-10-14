@@ -20,6 +20,9 @@ export default function (eleventyConfig) {
     },
   });
 
+  // Arquivos de instrução (LEIA-ME) dentro de assets não viram páginas.
+  eleventyConfig.ignores.add('src/assets/**');
+
   eleventyConfig.setNunjucksEnvironmentOptions({ autoescape: true, trimBlocks: true, lstripBlocks: true });
 
   // Acrescenta o pathPrefix (ex.: /aligva-catalogo/) em todos os links e imagens do HTML.

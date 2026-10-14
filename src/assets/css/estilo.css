@@ -149,7 +149,7 @@ button { cursor: pointer; }
 .secao { padding-block: var(--e-8); }
 .secao--papel { background: var(--cor-papel); }
 .secao + .secao:not(.secao--papel) { padding-top: 0; }
-.secao--papel + .secao { padding-top: var(--e-8); }
+.secao.secao--papel + .secao:not(.secao--papel) { padding-top: var(--e-8); }
 
 /* Textura vergê: linhas finas horizontais (vergaturas) e verticais espaçadas
    (pontusais), como o papel das embalagens. Bem sutil. */
@@ -574,6 +574,7 @@ button { cursor: pointer; }
 }
 .passos h3 { font-size: var(--t-lg); margin-bottom: var(--e-2); }
 .passos p { color: var(--cor-suave); margin: 0; }
+.passos + p { margin-top: var(--e-6); }
 
 /* --- Trilha (breadcrumb) --- */
 .trilha { font-size: var(--t-sm); color: var(--cor-suave); padding-top: var(--e-5); }
@@ -1082,7 +1083,7 @@ textarea.entrada { min-height: 5rem; resize: vertical; }
 @media (min-width: 56rem) { .duas-colunas { grid-template-columns: 1fr 1fr; gap: var(--e-8); } }
 .figura-marca { margin: 0; background: var(--cor-papel); aspect-ratio: 4 / 5; overflow: hidden; }
 .figura-marca img { width: 100%; height: 100%; object-fit: cover; }
-.figura-marca--vazia { display: grid; place-items: center; border: 1px solid var(--cor-linha); }
+.figura-marca--vazia { aspect-ratio: 4 / 3; display: grid; place-items: center; border: 1px solid var(--cor-linha); }
 .figura-marca--vazia span { font-family: var(--fonte-titulo); letter-spacing: 0.5em; font-size: var(--t-xl); color: var(--cor-dourado-texto); margin-right: -0.5em; }
 
 .faq { border-top: 1px solid var(--cor-linha); }
@@ -1233,3 +1234,8 @@ textarea.entrada { min-height: 5rem; resize: vertical; }
   img { break-inside: avoid; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* Utilidades */
+.passos.passos--coluna { grid-template-columns: 1fr; gap: var(--e-4); }
+.passos--coluna li::before { font-size: var(--t-lg); margin-bottom: var(--e-1); }
+.centro { text-align: center; }
