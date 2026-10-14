@@ -35,6 +35,7 @@ test('aceita quebra de linha dentro de aspas e informa a linha correta', () => {
   const { linhas } = lerCsv('slug;descricao\ncirce;"linha 1\nlinha 2"\noutro;texto\n');
   assert.equal(linhas[0].descricao, 'linha 1\nlinha 2');
   assert.equal(linhas[1].slug, 'outro');
+  assert.equal(linhas[0].__linha, 2);
   assert.equal(linhas[1].__linha, 4);
 });
 
