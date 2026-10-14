@@ -52,6 +52,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('dataIso', (data) => new Date(data || Date.now()).toISOString().slice(0, 10));
   eleventyConfig.addFilter('mesAno', (data) => new Date(data || Date.now()).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }));
   eleventyConfig.addFilter('instagramUrl', (usuario) => (usuario ? `https://www.instagram.com/${String(usuario).replace(/^@/, '')}/` : ''));
+  // "a partir de R$ 119" (ou só "R$ 119" quando há um tamanho); vazio se os preços estiverem ocultos.
+  eleventyConfig.addFilter('precoAPartir', (produto) => {
+    if (!site.mostrarPrecos || !produto?.precoMin) return '';
+    return `${produto.precos.length > 1 ? 'a partir de ' : ''}${formatarPreco(produto.precoMin)}`;
+  });
   eleventyConfig.addFilter('semAlt', (foto) => ({ ...foto, alt: '' }));
   // Quebra um nome em linhas de até N caracteres (placeholder em SVG).
   eleventyConfig.addFilter('quebrarLinhas', (texto, max = 12) => {

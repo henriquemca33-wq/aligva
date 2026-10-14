@@ -1,4 +1,129 @@
 ---
 layout: layouts/base.njk
+description: Aligva, perfumaria artesanal brasileira. Extratos com quase 30% de fragrância, produzidos em pequena escala em Santa Catarina. Peça pelo WhatsApp ou na loja online.
+eleventyComputed:
+  dadosEstruturados:
+    - "@context": "https://schema.org"
+      "@type": Organization
+      name: "{{ site.nome }}"
+      url: "{{ '/' | absoluta }}"
+      logo: "{{ '/icone-512.png' | absoluta }}"
+      email: "{{ site.email }}"
+      description: "{{ site.descricao }}"
+      address:
+        "@type": PostalAddress
+        addressRegion: SC
+        addressCountry: BR
 ---
-<section class="secao"><div class="container"><h1>Em construção</h1><p class="texto-corrido">Layout base.</p></div></section>
+{% from "partes/macros.njk" import card, icone, imagem %}
+
+<section class="abertura" aria-labelledby="titulo-abertura">
+  <div class="container abertura__grade">
+    <div>
+      <span class="sobrescrito">Perfumaria artesanal · Santa Catarina</span>
+      <h1 id="titulo-abertura">{{ site.abertura.frase }}</h1>
+      {% if site.abertura.texto %}<p class="abertura__texto">{{ site.abertura.texto }}</p>{% endif %}
+      <div class="grupo-botoes">
+        <a class="botao" href="/catalogo/?linha=linha-aligva">Ver a linha</a>
+        {% if site.whatsapp.numero %}
+        <a class="botao botao--contorno" href="{{ site.whatsapp.mensagemInicial | whatsapp }}" target="_blank" rel="noopener">{{ icone('conversa') }} Falar no WhatsApp</a>
+        {% else %}
+        <a class="botao botao--contorno" href="{{ site.loja }}" target="_blank" rel="noopener">{{ icone('loja') }} Visitar a loja online</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="abertura__midia">
+      {% if catalogo.marca.abertura %}
+        {{ imagem(catalogo.marca.abertura, "(min-width: 56rem) 45vw, 100vw", true) }}
+      {% else %}
+        <div class="abertura__monograma verge" aria-hidden="true"><span>ALIGVA</span><small>Extrato · quase 30% de fragrância</small></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if site.diferenciais.length %}
+<section class="secao--papel verge" aria-label="Diferenciais">
+  <div class="container">
+    <ul class="diferenciais">
+      {% for d in site.diferenciais %}<li><strong>{{ d.titulo }}</strong><span>{{ d.texto }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% if catalogo.destaques.length %}
+<section class="secao" aria-labelledby="titulo-destaques">
+  <div class="container">
+    <div class="cabecalho-secao cabecalho-secao--linha">
+      <div>
+        <span class="sobrescrito">Seleção</span>
+        <h2 id="titulo-destaques">Destaques</h2>
+      </div>
+      <a class="link-seta" href="/catalogo/">Ver todos os perfumes</a>
+    </div>
+    <ul class="grade-produtos grade-produtos--destaque">
+      {% for produto in catalogo.destaques | limitar(6) %}{{ card(produto, 3, "(min-width: 48rem) 30vw, 46vw") }}{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% set novidades = [] %}
+{% for p in catalogo.novidades %}{% if not p.destaque %}{% set novidades = (novidades.push(p), novidades) %}{% endif %}{% endfor %}
+{% if novidades.length %}
+<section class="secao" aria-labelledby="titulo-novidades">
+  <div class="container">
+    <div class="cabecalho-secao">
+      <span class="sobrescrito">Recém-chegados</span>
+      <h2 id="titulo-novidades">Novidades</h2>
+    </div>
+    <ul class="grade-produtos">
+      {% for produto in novidades | limitar(4) %}{{ card(produto) }}{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+<section class="secao secao--papel verge" aria-labelledby="titulo-linhas">
+  <div class="container">
+    <div class="cabecalho-secao cabecalho-secao--centro">
+      <span class="sobrescrito">Coleções</span>
+      <h2 id="titulo-linhas">As linhas da Aligva</h2>
+      <span class="filete"></span>
+    </div>
+    <ul class="linhas">
+      <li class="linha-bloco">
+        <span class="sobrescrito">{{ catalogo.linhaAligva.length }} {{ 'perfume' if catalogo.linhaAligva.length == 1 else 'perfumes' }} no catálogo</span>
+        <h3>{{ site.linhas.linhaAligva.nome }}</h3>
+        <p>{{ site.linhas.linhaAligva.texto }}</p>
+        <a class="link-seta" href="/catalogo/?linha=linha-aligva">Ver a linha</a>
+      </li>
+      <li class="linha-bloco">
+        <span class="sobrescrito">Sob pedido</span>
+        <h3>{{ site.linhas.encomendas.nome }}</h3>
+        <p>{{ site.linhas.encomendas.texto }}</p>
+        <a class="link-seta" href="/encomendas/">Ver as encomendas</a>
+      </li>
+      <li class="linha-bloco linha-bloco--em-breve">
+        <span class="sobrescrito">Linha autoral</span>
+        <h3>{{ site.linhaAutoral.nome }}</h3>
+        {% if site.linhaAutoral.texto %}<p>{{ site.linhaAutoral.texto }}</p>{% endif %}
+        <span class="linha-bloco__status">{{ site.linhaAutoral.status }}</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="secao" aria-labelledby="titulo-como-comprar">
+  <div class="container">
+    <div class="cabecalho-secao cabecalho-secao--linha">
+      <div>
+        <span class="sobrescrito">Simples e direto</span>
+        <h2 id="titulo-como-comprar">Como comprar</h2>
+      </div>
+      <a class="link-seta" href="/como-comprar/">Envio e dúvidas</a>
+    </div>
+    {% include "partes/passos.njk" %}
+  </div>
+</section>

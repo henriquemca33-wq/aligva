@@ -44,13 +44,6 @@
 </svg>
 {% endmacro %}
 
-{# Preço "a partir de" para cards e listas. #}
-{% macro precoAPartir(produto) %}
-{% if site.mostrarPrecos and produto.precoMin %}
-  {% if produto.precos | length > 1 %}<small>a partir de</small> {% endif %}{{ produto.precoMin | preco }}
-{% endif %}
-{% endmacro %}
-
 {% macro selos(produto) %}
 {% if produto.novo or produto.disponivel != 'sim' %}
 <div class="selos">
@@ -82,8 +75,8 @@
     {% if produto.familiaRotulo %}<span class="card__familia">{{ produto.familiaRotulo }}</span>{% endif %}
     <h{{ nivelTitulo }} class="card__nome"><a href="/perfume/{{ produto.slug }}/">{{ produto.nome }}</a></h{{ nivelTitulo }}>
     {% if produto.notasPrincipais.length %}<p class="card__notas">{{ produto.notasPrincipais | join(' · ') }}</p>{% endif %}
-    {% set p = precoAPartir(produto) | trim %}
-    {% if p %}<p class="card__preco">{{ p | safe }}</p>{% endif %}
+    {% set p = produto | precoAPartir %}
+    {% if p %}<p class="card__preco">{{ p }}</p>{% endif %}
   </div>
 </li>
 {% endmacro %}
