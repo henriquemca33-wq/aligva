@@ -844,6 +844,10 @@ textarea.entrada { min-height: 5rem; resize: vertical; }
   .filtros { grid-template-columns: minmax(16rem, 1fr) 3fr; align-items: end; }
   .filtros__campos { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
+@media (max-width: 47.99rem) {
+  .filtros:not(.aberto) .filtros__campos { display: none; }
+}
+@media (min-width: 48rem) { .filtros__alternar { display: none !important; } }
 .filtros__resumo {
   display: flex;
   flex-wrap: wrap;
