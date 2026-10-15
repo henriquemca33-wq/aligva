@@ -35,6 +35,16 @@ eleventyComputed:
 </section>
 
 <div class="container secao">
+  <div class="convite-encomenda">
+    <span class="sobrescrito">Femininos · Masculinos · Compartilháveis</span>
+    <h2>Procurando uma fragrância específica?</h2>
+    <p class="texto-suave">Conte qual fragrância você procura: respondemos se conseguimos produzi-la{% if enc.prazoProducao %} e em quanto tempo{% endif %}.</p>
+    {% if site.whatsapp.numero %}
+    <a class="botao" href="{{ enc.mensagemWhatsapp | whatsapp }}" target="_blank" rel="noopener">{{ icone('conversa') }} {{ enc.convite }}</a>
+    {% else %}
+    <a class="botao" href="mailto:{{ site.email }}?subject={{ 'Encomenda' | urlencode }}">{{ icone('email') }} Pergunte por e-mail se fazemos a fragrância que você procura</a>
+    {% endif %}
+  </div>
   {% if catalogo.encomendas.length %}
   <nav aria-label="Grupos de encomendas">
     <ul class="indice-grupos">
@@ -67,7 +77,5 @@ eleventyComputed:
     </ul>
   </section>
   {% endfor %}
-  {% else %}
-  <p>A lista de encomendas será publicada em breve. Enquanto isso, fale com a gente pelo e-mail <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
   {% endif %}
 </div>

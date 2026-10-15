@@ -16,7 +16,7 @@ eleventyComputed:
   <header class="cabecalho-pagina">
     <span class="sobrescrito">{{ catalogo.produtos.length }} perfumes</span>
     <h1>Catálogo</h1>
-    <p>Linha Aligva e encomendas. Busque pelo nome ou por uma nota que você gosta, como “baunilha”.</p>
+    <p>{% if catalogo.secoes.length > 1 %}Linha Aligva e encomendas.{% else %}Todos os perfumes da Linha Aligva.{% endif %} Busque pelo nome ou por uma nota que você gosta, como “baunilha”.</p>
   </header>
 
   <div data-catalogo>
@@ -29,6 +29,7 @@ eleventyComputed:
       </div>
       <button class="botao botao--leve botao--bloco filtros__alternar" type="button" aria-expanded="false" aria-controls="filtros-campos" data-alternar-filtros>Filtrar e ordenar</button>
       <div class="filtros__campos" id="filtros-campos">
+        {% if catalogo.secoes.length > 1 %}
         <div class="campo">
           <label for="filtro-linha">Linha</label>
           <select class="entrada" id="filtro-linha" name="linha">
@@ -36,6 +37,7 @@ eleventyComputed:
             {% for s in catalogo.secoes %}<option value="{{ s.linha }}">{{ s.rotulo }}</option>{% endfor %}
           </select>
         </div>
+        {% endif %}
         <div class="campo">
           <label for="filtro-genero">Gênero</label>
           <select class="entrada" id="filtro-genero" name="genero">

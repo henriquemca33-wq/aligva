@@ -41,7 +41,9 @@ test('catálogo: filtrar por gênero e buscar por nota', async ({ page, isMobile
 
 test('link compartilhável do catálogo com ?nota= funciona', async ({ page }) => {
   await page.goto('catalogo/?nota=gardenia');
-  await expect(page.locator('[data-grade] .card:visible')).toHaveCount(1);
+  const cards = page.locator('[data-grade] .card:visible');
+  await expect(cards.first()).toBeVisible();
+  for (const notas of await cards.evaluateAll((els) => els.map((e) => e.dataset.notas))) expect(notas).toContain('gardenia');
   await expect(page.locator('[data-filtro-nota]')).toContainText('gardenia');
 });
 
