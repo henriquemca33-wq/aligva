@@ -1,7 +1,7 @@
 <footer class="rodape">
   <div class="container rodape__grade">
     <div class="rodape__marca">
-      <span class="marca__texto">ALIGVA</span>
+      {% if catalogo.marca.logo %}<img class="rodape__logo" src="{{ catalogo.marca.logo }}" alt="Aligva" width="86" height="72" loading="lazy">{% else %}<span class="marca__texto">ALIGVA</span>{% endif %}
       <p>Perfumaria artesanal brasileira. Produção própria e em pequena escala, em Santa Catarina.</p>
     </div>
     <div>

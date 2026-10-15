@@ -4,6 +4,7 @@
   {% include "partes/head.njk" %}
 </head>
 <body class="impressao-tela">
+  {% include "partes/simbolos.njk" %}
   {{ content | safe }}
   <script type="module" src="{{ '/assets/js/principal.js' | versao }}"></script>
 </body>
