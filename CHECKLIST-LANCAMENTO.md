@@ -4,9 +4,9 @@ Marque cada item antes de divulgar o catálogo (bio do Instagram, mensagens para
 
 ## Configuração (`src/_data/site.json`)
 
-- [ ] **WhatsApp** (`whatsapp.numero`) no formato `55` + DDD + número, só dígitos. Sem ele, os botões de WhatsApp não aparecem e a sacola envia o pedido por e-mail.
+- [x] **WhatsApp** (`whatsapp.numero`): +55 48 99139-0993.
 - [ ] Mensagem inicial do WhatsApp revisada (`whatsapp.mensagemInicial`).
-- [ ] **Instagram** (`instagram.usuario`), sem @.
+- [x] **Instagram** (`instagram.usuario`): @usealigva.
 - [ ] **Prazo de produção das encomendas** (`linhas.encomendas.prazoProducao`).
 - [ ] Prazo de envio (`envio.prazo`), se fizer sentido mostrar.
 - [ ] Frete grátis: decidir. Deixar `null` (desligado) ou colocar o valor em `freteGratisAcima`.
@@ -23,25 +23,25 @@ Marque cada item antes de divulgar o catálogo (bio do Instagram, mensagens para
 
 ## Produtos (`src/_data/produtos.csv`)
 
-- [ ] Todos os perfumes da Linha Aligva cadastrados (cerca de 33).
-- [ ] Encomendas cadastradas, em femininos, masculinos e compartilháveis.
-- [ ] **Circe:** conferir gênero (cadastrado como `feminino`), família (cadastrada como `floral`), disponibilidade e **preços** (ainda vazios, aparece "Valor sob consulta").
-- [ ] **Preços** conferidos, todos terminando em 9.
+- [x] Todos os perfumes da Linha Aligva cadastrados (34).
+- [x] Encomendas: por enquanto sem lista; a página explica e convida a perguntar pelo WhatsApp. Para listar perfumes depois, cadastre linhas com `linha` = `encomenda`.
+- [x] **Circe:** feminino, floriental, disponível, R$ 109 (50 mL) e R$ 179 (100 mL).
+- [x] **Preços** terminando em 9 (conferidos pela validação). Vale uma última revisão de valores.
 - [ ] Notas olfativas em português (ou nome comercial da matéria-prima).
-- [ ] Coluna `referencia` só com códigos internos curtos, **nunca nomes de outras marcas** (o repositório é público).
-- [ ] **Produtos de exemplo apagados** (linhas com `EXEMPLO` no nome / `exemplo=sim`).
-- [ ] Depois de apagar os exemplos: criar a variável **`PRODUCAO` = `true`** em *Settings → Secrets and variables → Actions → Variables*. Isso impede que um exemplo volte por engano.
+- [x] Coluna `referencia` vazia. Se for usar, só códigos internos curtos, **nunca nomes de outras marcas** (o repositório é público).
+- [x] **Produtos de exemplo apagados.**
+- [x] Modo produção ligado por padrão no deploy: um produto de exemplo publicado por engano impede a publicação.
 - [ ] `link_loja` preenchido nos perfumes que existem na Nuvemshop.
 
 ## Imagens
 
-- [ ] Fotos de cada perfume em `src/assets/produtos/<slug>/` (verticais 4:5, ≥ 1600×2000 px).
-- [ ] Logo em `src/assets/marca/logo.svg` (ou `.png`).
+- [ ] Fotos novas de cada perfume (embalagem nova) em `src/assets/produtos/<slug>/<slug>-100ml.jpg`, `-50ml.jpg`, `-caixa.jpg`. Até lá, o site usa o quadro da marca.
+- [x] Logo e coroa em `src/assets/marca/` (versão 2026 fina, bronze).
 - [ ] (Opcional) foto da abertura e foto do "Sobre".
 
 ## Publicação
 
-- [ ] *Settings → Pages → Source:* **GitHub Actions**.
+- [x] *Settings → Pages → Source:* **GitHub Actions**.
 - [ ] Última publicação em **Actions** com ✅ verde.
 - [ ] Nenhum aviso importante no passo "Validar planilha e configuração".
 - [ ] (Opcional) domínio `catalogo.aligva.com.br` configurado, com **Enforce HTTPS** ativo.

@@ -46,11 +46,11 @@ A opção 1 apresenta a marca e o diferencial técnico sem falar de preço. Para
 
 O que só os donos podem escrever (fica oculto até ser preenchido): quem são os fundadores, quando e por que a marca começou, como é o processo de produção.
 
-## Pendências para os donos (todos os `PREENCHER` e decisões)
+## Pendências para os donos
+
+Já resolvidos: WhatsApp, Instagram, os 34 perfumes, o Circe, os logos e a remoção dos exemplos. Ainda faltam:
 
 **`src/_data/site.json`**
-- `whatsapp.numero`: número do WhatsApp. Sem ele, os botões de WhatsApp somem e a sacola envia por e-mail.
-- `instagram.usuario`
 - `linhas.encomendas.prazoProducao`: prazo de produção das encomendas
 - `sobre.quemSomos`, `sobre.historia`, `sobre.processo`
 - `envio.prazo`
@@ -60,17 +60,14 @@ O que só os donos podem escrever (fica oculto até ser preenchido): quem são o
 
 **`src/_data/faq.json`**: respostas para prazo das encomendas, formas de pagamento, prazo de entrega e trocas/devoluções.
 
-**`src/_data/produtos.csv`**
-- **Circe:** preços (vazios, aparece "Valor sob consulta"); **gênero** (cadastrei `feminino`, confirmar); **família** (cadastrei `floral`, confirmar); disponibilidade (cadastrei `sim`).
-- Cadastrar os ~33 perfumes da Linha Aligva e as encomendas.
-- Apagar os 5 produtos `EXEMPLO` e depois criar a variável `PRODUCAO=true` no GitHub.
+**`src/_data/produtos.csv`**: marcar `destaque` = `sim` nos perfumes que devem abrir a página inicial (sem nenhum marcado, aparecem os 6 primeiros da coluna `ordem`) e, se quiser, `link_loja` com o link de cada perfume na Nuvemshop.
 
-**Arquivos:** logo (`src/assets/marca/logo.svg`), fotos dos perfumes e, opcionalmente, fotos da abertura e do Sobre.
+**Fotos:** fotos novas com a embalagem nova, no padrão `<slug>-100ml.jpg`, `<slug>-50ml.jpg`, `<slug>-caixa.jpg` (GUIA-DE-EDICAO.md, seção 2).
 
 ## Decisões tomadas por bom senso
 
 - **Fontes:** Cormorant Garamond (títulos), uma serifada de alto contraste, típica da perfumaria de nicho, e Jost (texto), geométrica, limpa e muito legível no celular. Há mecanismo pronto para fontes próprias (`site.json → fontes`).
-- **Paleta:** branco `#FFFFFF`; papel `#F8F6F1` (eco da embalagem vergê); tinta `#1F1D1A` (preto suave e quente); cinza `#5E5A54` (6,9:1); dourado `#B08D57`, só decorativo (3,1:1, nunca em texto); **dourado-texto `#7D6135`** (5,8:1, passa AA) para textos dourados.
+- **Paleta:** branco `#FFFFFF`; papel `#F8F6F1` (eco da embalagem vergê); tinta `#1F1D1A` (preto suave e quente); cinza `#5E5A54` (6,9:1); **bronze `#7E6741`**, tirado do SVG do logotipo, usado como token "dourado" (5,4:1 no branco e 5,0:1 no papel, passa AA também em texto).
 - **Sem WhatsApp configurado**, o pedido sai por e-mail para `atendimento@aligva.com.br`, para o site nunca ficar sem saída.
 - **Sem preço cadastrado**, os dois tamanhos são oferecidos e a mensagem diz "valor a confirmar".
 - **Exclusif:** produtos com `linha=exclusif` são ignorados (com aviso) enquanto a linha estiver "Em breve".
