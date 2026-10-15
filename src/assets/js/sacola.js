@@ -136,6 +136,8 @@ function renderizar() {
       img.height = 80;
       img.loading = 'lazy';
       foto.append(img);
+    } else {
+      foto.innerHTML = '<svg aria-hidden="true" focusable="false" viewBox="0 0 64 80"><rect width="64" height="80" fill="#fbfaf7"/><use href="#coroa-aligva" x="20" y="29" width="24" height="22" fill="#7e6741"/></svg>';
     }
     li.append(foto);
 

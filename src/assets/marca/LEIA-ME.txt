@@ -1,7 +1,10 @@
-Pasta das imagens da marca.
+Pasta das imagens da marca (usadas no site).
 
-- logo.svg (ou logo.png): logotipo da Aligva. Se existir, aparece no cabeçalho
-  e na capa do catálogo em PDF. Se não existir, o site usa "ALIGVA" em texto.
-- Foto da abertura da página inicial: coloque o arquivo aqui e escreva o nome
-  dele em site.json → abertura.imagem (e uma descrição em abertura.imagemAlt).
-- Foto da página Sobre: idem, em site.json → sobre.foto e sobre.fotoAlt.
+- logo.svg ........ logo principal em bronze (cabeçalho, rodapé, abertura e capa do PDF)
+- logo-preto.svg .. alternativa para fundo claro / impressão em preto e branco
+- logo-branco.svg . para usar sobre fotos ou fundo escuro
+- coroa.svg ....... coroa da marca (ícone do site e quadros dos perfumes sem foto)
+- favicone.svg .... ícone da aba do navegador (coroa)
+
+Os PNG originais ficam em recursos/marca/ (reserva, não vão para o site).
+Foto da abertura (opcional): coloque aqui e escreva o nome em site.json -> abertura.imagem.

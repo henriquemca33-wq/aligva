@@ -9,12 +9,12 @@
 
   "whatsapp": {
     "_comentario": "Número em formato internacional, só dígitos: 55 + DDD + número. Ex.: 5548999999999",
-    "numero": "PREENCHER",
+    "numero": "5548991390993",
     "mensagemInicial": "Olá, Aligva! Vim pelo catálogo online e gostaria de ajuda para escolher um perfume."
   },
   "instagram": {
     "_comentario": "Apenas o nome de usuário, sem @. Ex.: aligva",
-    "usuario": "PREENCHER"
+    "usuario": "usealigva"
   },
   "email": "atendimento@aligva.com.br",
   "loja": "https://aligva.com.br",
@@ -43,11 +43,13 @@
     },
     "encomendas": {
       "nome": "Encomendas",
-      "texto": "Perfumes fora da linha, produzidos sob pedido. Organizados em femininos, masculinos e compartilháveis.",
+      "texto": "Perfumes fora da linha, produzidos sob pedido: femininos, masculinos e compartilháveis.",
+      "convite": "Pergunte pelo WhatsApp se fazemos a fragrância que você procura",
+      "mensagemWhatsapp": "Olá, Aligva! Queria saber se vocês fazem uma fragrância que estou procurando:",
       "prazoProducao": "PREENCHER",
       "comoFunciona": [
-        "Escolha o perfume na lista abaixo e chame a Aligva pelo WhatsApp.",
-        "Combinamos tamanho, valor e envio com você.",
+        "Conte pelo WhatsApp qual fragrância você procura.",
+        "Respondemos se conseguimos produzi-la e combinamos tamanho, valor e envio com você.",
         "O perfume é produzido sob pedido e enviado pelos Correios ou por transportadora."
       ]
     }

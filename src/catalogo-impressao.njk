@@ -48,7 +48,7 @@ naoIndexar: true
       {% for p in grupo.produtos %}
       <li class="item-impressao">
         <div class="item-impressao__foto">
-          {% if p.fotos.length %}<img src="{{ p.fotos[0].medio }}" alt="" width="{{ p.fotos[0].largura }}" height="{{ p.fotos[0].altura }}">{% else %}{{ semFoto(p.nome) }}{% endif %}
+          {% if p.fotos.length %}<img src="{{ p.fotos[0].medio }}" alt="" width="{{ p.fotos[0].largura }}" height="{{ p.fotos[0].altura }}">{% else %}{{ semFoto(p.nome, true, p.familiaRotulo) }}{% endif %}
         </div>
         <h4>{{ p.nome }}</h4>
         <p>{{ p.familiaRotulo }}{% if p.familiaRotulo and p.disponivel != 'sim' %} · {% endif %}{% if p.disponivel != 'sim' %}{{ p.disponivelRotulo }}{% endif %}</p>
@@ -70,7 +70,7 @@ naoIndexar: true
   {% endfor %}
 
   <section class="folha folha--contracapa" aria-label="Contatos">
-    <div class="capa__marca">ALIGVA</div>
+    <div class="capa__marca capa__marca--pequena">{% if catalogo.marca.logo %}<img src="{{ catalogo.marca.logo }}" alt="Aligva">{% else %}ALIGVA{% endif %}</div>
     <p class="capa__sub">Pedidos e informações</p>
     <ul class="contracapa__contatos">
       {% if site.whatsapp.numero %}<li>WhatsApp: {{ site.whatsapp.numero | telefone }}</li>{% endif %}

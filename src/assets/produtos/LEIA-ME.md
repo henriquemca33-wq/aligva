@@ -1,13 +1,15 @@
 # Fotos dos perfumes
 
-Crie uma pasta com o **slug** do perfume (o mesmo da coluna `slug` do CSV) e coloque as fotos dentro:
+Uma pasta por perfume, com o **slug** do CSV, e até três fotos:
 
 ```
-src/assets/produtos/circe/1-frasco.jpg
-src/assets/produtos/circe/2-caixa.jpg
+src/assets/produtos/circe/circe-100ml.jpg   ← principal
+src/assets/produtos/circe/circe-50ml.jpg
+src/assets/produtos/circe/circe-caixa.jpg
 ```
 
-- Formato: JPG (ou PNG/WebP), de preferência **vertical 4:5**, com pelo menos **1600 × 2000 px**.
-- As fotos aparecem em ordem alfabética (por isso o "1-", "2-" no começo do nome), a não ser que a coluna `fotos` do CSV diga outra ordem.
-- O site gera sozinho versões menores e mais leves (AVIF, WebP e JPEG). Não precisa reduzir antes.
-- Use somente fotos próprias da Aligva. Nunca use fotos de frascos ou marcas de terceiros.
+- JPG vertical 4:5, com pelo menos 1600 × 2000 px, fundo claro.
+- Somente fotos próprias da Aligva, com a **embalagem nova**.
+- Sem foto, o site mostra o quadro da marca (coroa, nome e família).
+
+Passo a passo completo no GUIA-DE-EDICAO.md, seção 2.

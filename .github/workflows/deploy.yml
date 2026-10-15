@@ -23,10 +23,10 @@ jobs:
     name: Validar, gerar e testar
     runs-on: ubuntu-latest
     env:
-      # Quando os produtos de exemplo forem apagados, crie a variável PRODUCAO=true em
-      # Settings → Secrets and variables → Actions → Variables. A partir daí, um exemplo
-      # publicado por engano impede a publicação.
-      PRODUCAO: ${{ vars.PRODUCAO || 'false' }}
+      # Modo produção: um produto com exemplo=sim e publicar=sim impede a publicação.
+      # Para desligar temporariamente, crie a variável PRODUCAO=false em
+      # Settings → Secrets and variables → Actions → Variables.
+      PRODUCAO: ${{ vars.PRODUCAO || 'true' }}
     steps:
       - uses: actions/checkout@v4
 

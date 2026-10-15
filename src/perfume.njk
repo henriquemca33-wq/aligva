@@ -60,7 +60,7 @@ permalink: "/perfume/{{ produto.slug }}/"
         {% endif %}
       </dialog>
       {% else %}
-      <div class="galeria__trilho"><div class="galeria__slide">{{ semFoto(p.nome, false) }}</div></div>
+      <div class="galeria__trilho"><div class="galeria__slide">{{ semFoto(p.nome, false, p.familiaRotulo) }}</div></div>
       {% endif %}
     </section>
 

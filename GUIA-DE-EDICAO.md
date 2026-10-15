@@ -87,27 +87,40 @@ Há um arquivo **`modelo-produtos.csv`** na raiz do repositório com o cabeçalh
 
 ## 2. Fotos dos perfumes
 
-1. No GitHub, entre em `src/assets/produtos/`.
+> **Situação atual:** ainda não há fotos novas. As fotos antigas mostram a embalagem antiga e **não devem ser usadas**. Enquanto isso, todos os perfumes aparecem com o quadro da marca: coroa em bronze, nome do perfume e família olfativa. Quando uma foto é enviada, ela substitui o quadro sozinha.
+
+### Como as fotos devem ser nomeadas
+
+Cada perfume tem uma pasta com o seu **slug** (a primeira coluna do CSV), com até três fotos:
+
+```
+src/assets/produtos/circe/circe-100ml.jpg   ← foto principal (aparece no card e no topo da página)
+src/assets/produtos/circe/circe-50ml.jpg
+src/assets/produtos/circe/circe-caixa.jpg
+```
+
+O site mostra as fotos nessa ordem (100 mL, 50 mL, caixa). Se faltar alguma, ele usa as que existirem.
+
+### Passo a passo no GitHub
+
+1. Entre em `src/assets/produtos/` no repositório.
 2. Clique em **Add file → Upload files**.
-3. **Antes de arrastar as fotos**, crie a pasta do perfume: no GitHub, isso se faz escrevendo o caminho no nome do arquivo. O jeito mais fácil:
-   - clique em **Add file → Create new file**;
-   - no nome, digite `circe/LEIA-ME.txt` (troque `circe` pelo **slug** do perfume). A barra cria a pasta;
-   - escreva qualquer coisa, clique em **Commit changes**;
-   - entre na pasta nova e use **Add file → Upload files** para enviar as fotos.
-4. Clique em **Commit changes**.
+3. **Arraste a pasta inteira** do perfume (ex.: a pasta `circe`, com as fotos dentro), não só as fotos soltas. O GitHub cria a pasta sozinho.
+   - Para enviar várias de uma vez, arraste várias pastas juntas.
+4. Clique em **Commit changes** e acompanhe a publicação na aba **Actions** (seção 4).
 
 **Recomendações:**
 
-- formato **JPG** (PNG e WebP também funcionam);
+- formato **JPG**;
 - **vertical, proporção 4:5**, com pelo menos **1600 × 2000 pixels**;
-- fundo claro, combinando com o site;
-- nomes simples, sem acento nem espaço: `1-frasco.jpg`, `2-caixa.jpg`, `3-detalhe.jpg`. A ordem é alfabética, por isso o número na frente;
+- fundo claro (branco ou off-white), combinando com o site;
+- nomes exatamente como acima: minúsculas, sem acento, sem espaço;
 - não precisa diminuir o tamanho: o site gera versões leves sozinho;
-- **somente fotos próprias da Aligva**.
+- **somente fotos próprias da Aligva, com a embalagem nova**.
 
-Se um perfume não tiver foto, o site mostra um quadro elegante com o nome dele, nunca uma imagem quebrada.
+### Logo e coroa
 
-**Logo da marca:** envie o arquivo como `src/assets/marca/logo.svg` (ou `logo.png`). Ele passa a aparecer no cabeçalho e na capa do PDF. Sem ele, o site escreve "ALIGVA" em letras espaçadas.
+Ficam em `src/assets/marca/`: `logo.svg` (bronze, cabeçalho e PDF), `logo-preto.svg`, `logo-branco.svg` e `coroa.svg` (ícone do site). Os PNG originais estão guardados em `recursos/marca/`. Para trocar o logo, substitua o arquivo **com o mesmo nome**.
 
 ---
 
@@ -119,9 +132,9 @@ Tudo fica em **`src/_data/site.json`**. Para editar: abra o arquivo no GitHub �
 
 | o quê | onde no `site.json` | exemplo |
 |---|---|---|
-| **número do WhatsApp** | `"whatsapp"` → `"numero"`: 55 + DDD + número, só dígitos | `"5548999999999"` |
+| **número do WhatsApp** | `"whatsapp"` → `"numero"`: 55 + DDD + número, só dígitos | `"5548991390993"` |
 | mensagem inicial do WhatsApp | `"whatsapp"` → `"mensagemInicial"` | |
-| **Instagram** | `"instagram"` → `"usuario"`: sem @ | `"aligva"` |
+| **Instagram** | `"instagram"` → `"usuario"`: sem @ | `"usealigva"` |
 | mostrar ou esconder preços | `"mostrarPrecos"`: `true` ou `false` | `true` |
 | frete grátis acima de | `"freteGratisAcima"`: `null` (desligado) ou o valor | `null` ou `399` |
 | frase e texto da abertura | `"abertura"` → `"frase"`, `"texto"` | |

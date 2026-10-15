@@ -30,17 +30,21 @@
 </picture>
 {% endmacro %}
 
-{# Placeholder elegante em SVG quando o perfume ainda não tem foto. #}
-{% macro semFoto(nome, decorativo=true) %}
-{% set linhas = nome | replace('EXEMPLO ', '') | quebrarLinhas(11) %}
-{% set tamanhoFonte = 34 if linhas | length < 3 else 28 %}
+{# Placeholder em SVG enquanto o perfume não tem foto: coroa em bronze, nome na
+   serifada e família olfativa. A coroa vem do <symbol id="coroa-aligva"> (partes/simbolos.njk). #}
+{% macro semFoto(nome, decorativo=true, familia='') %}
+{% set linhas = nome | quebrarLinhas(12) %}
+{% set tamanhoFonte = 40 if linhas | length < 3 else 32 %}
+{% set alturaTexto = (linhas | length - 1) * tamanhoFonte * 1.15 %}
+{% set baseNome = 262 - alturaTexto / 2 %}
 <svg class="sem-foto" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" {% if decorativo %}aria-hidden="true" focusable="false"{% else %}role="img" aria-label="{{ nome }} — foto em breve"{% endif %}>
-  <rect width="400" height="500" fill="#f8f6f1"/>
-  <rect x="20" y="20" width="360" height="460" fill="none" stroke="#b08d57" stroke-width="0.8" opacity="0.6"/>
-  <text x="200" y="{{ 250 - (linhas | length - 1) * tamanhoFonte * 0.6 }}" text-anchor="middle" fill="#1f1d1a" font-size="{{ tamanhoFonte }}" font-family="Cormorant Garamond, Georgia, serif">
-    {% for l in linhas %}<tspan x="200" dy="{{ 0 if loop.first else tamanhoFonte * 1.2 }}">{{ l }}</tspan>{% endfor %}
+  <rect width="400" height="500" fill="#fbfaf7"/>
+  <rect x="18" y="18" width="364" height="464" fill="none" stroke="#7e6741" stroke-width="0.6" opacity="0.35"/>
+  <use href="#coroa-aligva" x="178" y="{{ baseNome - tamanhoFonte - 52 }}" width="44" height="41" fill="#7e6741" opacity="0.9"/>
+  <text x="200" y="{{ baseNome }}" text-anchor="middle" fill="#1f1d1a" font-size="{{ tamanhoFonte }}" font-family="Cormorant Garamond, Garamond, Georgia, serif">
+    {% for l in linhas %}<tspan x="200" dy="{{ 0 if loop.first else tamanhoFonte * 1.15 }}">{{ l }}</tspan>{% endfor %}
   </text>
-  <text x="200" y="430" text-anchor="middle" fill="#7d6135" font-size="11" letter-spacing="5" font-family="Jost, Helvetica, Arial, sans-serif">ALIGVA</text>
+  {% if familia %}<text x="200" y="{{ baseNome + alturaTexto + 44 }}" text-anchor="middle" fill="#7e6741" font-size="12" letter-spacing="4" font-family="Jost, Helvetica, Arial, sans-serif">{{ familia | upper }}</text>{% endif %}
 </svg>
 {% endmacro %}
 
@@ -68,7 +72,7 @@
     data-preco="{{ produto.precoMin or '' }}"
     data-ordem="{{ produto.ordem }}">
   <div class="card__midia">
-    {% if produto.fotos.length %}{{ imagem(produto.fotos[0] | semAlt, tamanhos) }}{% else %}{{ semFoto(produto.nome) }}{% endif %}
+    {% if produto.fotos.length %}{{ imagem(produto.fotos[0] | semAlt, tamanhos) }}{% else %}{{ semFoto(produto.nome, true, produto.familiaRotulo) }}{% endif %}
     {{ selos(produto) }}
   </div>
   <div class="card__corpo">
